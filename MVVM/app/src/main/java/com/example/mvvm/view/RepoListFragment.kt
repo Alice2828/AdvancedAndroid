@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 import com.example.mvvm.adapter.RepoListAdapter
 import com.example.mvvm.databinding.FragmentRepoListBinding
@@ -33,6 +34,7 @@ class RepoListFragment : Fragment() {
                 ViewModelProviders.of(this@RepoListFragment).get(RepoListViewModel::class.java)
             setLifecycleOwner(viewLifecycleOwner)
         }
+
         return viewDataBinding.root
     }
 
@@ -40,7 +42,6 @@ class RepoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.viewmodel?.fetchRepoList()
-
         setupAdapter()
         setObservers()
     }
@@ -51,9 +52,6 @@ class RepoListFragment : Fragment() {
             adapter.updateRepoList(it)
         })
 
-//        viewDataBinding.viewmodel.toastMessage.observe(viewLifecycleOwner, Observer {
-//            activity?.longToast(it)
-//        })
     }
 
     private fun setupAdapter() {

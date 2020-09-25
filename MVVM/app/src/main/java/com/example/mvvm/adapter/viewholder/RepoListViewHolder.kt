@@ -3,7 +3,7 @@ package com.example.mvvm.view.adapter.viewholder
 import androidx.databinding.ViewDataBinding
 import com.example.mvvm.BR
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mvvm.data.model.Item
+import com.example.mvvm.data.model.ApiPost
 import com.example.mvvm.viewmodel.RepoListViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_repo_list_item.view.*
@@ -14,11 +14,11 @@ class RepoListViewHolder constructor(
 ) : RecyclerView.ViewHolder(dataBinding.root) {
 
     val avatarImage = itemView.item_avatar
-    fun setup(itemData: Item) {
+    fun setup(itemData: ApiPost) {
         dataBinding.setVariable(BR.itemData, itemData)
         dataBinding.executePendingBindings()
 
-        Picasso.get().load(itemData.owner.avatar_url).into(avatarImage);
+        Picasso.get().load(itemData.thumbnailUrl).into(avatarImage);
 
 //        itemView.onClick {
 //            val bundle = bundleOf("url" to itemData.html_url)
