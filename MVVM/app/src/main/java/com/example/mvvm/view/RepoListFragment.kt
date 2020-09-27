@@ -32,7 +32,7 @@ class RepoListFragment : Fragment() {
         viewDataBinding = FragmentRepoListBinding.inflate(inflater, container, false).apply {
             viewmodel =
                 ViewModelProviders.of(this@RepoListFragment).get(RepoListViewModel::class.java)
-            setLifecycleOwner(viewLifecycleOwner)
+            lifecycleOwner = viewLifecycleOwner
         }
 
         return viewDataBinding.root
