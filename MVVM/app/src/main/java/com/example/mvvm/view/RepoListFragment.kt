@@ -57,7 +57,7 @@ class RepoListFragment : Fragment() {
     private fun setupAdapter() {
         val viewModel = viewDataBinding.viewmodel
         if (viewModel != null) {
-            adapter = RepoListAdapter(viewDataBinding.viewmodel!!)
+            adapter = RepoListAdapter(viewDataBinding.viewmodel!!,activity)
             val layoutManager = LinearLayoutManager(activity)
             repo_list_rv.layoutManager = layoutManager
             repo_list_rv.addItemDecoration(

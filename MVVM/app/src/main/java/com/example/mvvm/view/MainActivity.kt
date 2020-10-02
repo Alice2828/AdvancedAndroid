@@ -17,13 +17,7 @@ class MainActivity : AppCompatActivity() {
         fragmentManager = supportFragmentManager
 
         fragmentManager.beginTransaction().replace(R.id.main_nav_fragment, RepoListFragment())
-                .commit()
+            .commit()
 
     }
-
-
-    fun longToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-    }
-
 }
