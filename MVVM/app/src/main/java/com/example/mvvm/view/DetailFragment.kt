@@ -23,7 +23,6 @@ class DetailFragment constructor(private val itemDetail: ApiPost) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewDataBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_detail, container, false)
-       // viewDataBinding.setVariable(BR.itemDetail, itemDetail)
         val view = viewDataBinding.root
         viewDataBinding.setVariable(BR.itemDetail, itemDetail)
         val avatarImage = view.item_avatar
