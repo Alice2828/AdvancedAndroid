@@ -6,12 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.example.newsapp.adapter.RepoListAdapter
-import com.example.newsapp.adapter.viewholder.RepoListAdapter
 import com.example.newsapp.databinding.FragmentRepoListBinding
 import com.example.newsapp.viewmodel.RepoListViewModel
 import kotlinx.android.synthetic.main.fragment_repo_list.*

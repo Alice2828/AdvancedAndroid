@@ -1,9 +1,10 @@
-package com.example.newsapp.adapter.viewholder
+package com.example.newsapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapp.adapter.viewholder.RepoListViewHolder
 import com.example.newsapp.data.model.ApiPost
 import com.example.newsapp.databinding.ViewRepoListItemBinding
 import com.example.newsapp.viewmodel.RepoListViewModel
