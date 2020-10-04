@@ -19,7 +19,6 @@ class MainApplication: Application() {
 
             koin.loadModules(listOf(repositoryModule,networkModule, sharedPrefModule, viewModelModule))
             koin.createRootScope()
-            // modules(repositoryModule,networkModule, sharedPrefModule, viewModelModule)
         }
     }
 }

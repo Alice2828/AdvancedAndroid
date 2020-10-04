@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.adapter.viewholder.RepoListViewHolder
 import com.example.newsapp.data.model.ApiPost
+import com.example.newsapp.data.model.Articles
 import com.example.newsapp.databinding.ViewRepoListItemBinding
 import com.example.newsapp.viewmodel.RepoListViewModel
 
@@ -14,7 +15,7 @@ class RepoListAdapter(
     private val activity: FragmentActivity?
 ) :
     RecyclerView.Adapter<RepoListViewHolder>() {
-    var repoList: List<ApiPost> = emptyList()
+    var repoList: List<Articles> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoListViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -30,7 +31,7 @@ class RepoListAdapter(
 
     }
 
-    fun updateRepoList(repoList: List<ApiPost>) {
+    fun updateRepoList(repoList: List<Articles>) {
         this.repoList = repoList
         notifyDataSetChanged()
     }

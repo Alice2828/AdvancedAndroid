@@ -7,7 +7,7 @@
 
         <variable
             name="itemDetail"
-            type="com.example.newsapp.data.model.ApiPost" />
+            type="com.example.newsapp.data.model.Articles" />
 
     </data>
 
@@ -37,7 +37,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/_20dp"
                 android:gravity="center_vertical"
-                android:text="@{itemDetail.title}"
+                android:text="@{itemDetail.author}"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_20sp" />
 
@@ -52,11 +52,16 @@
             android:layout_gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/item_photo"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:layout_gravity="center_vertical" />
+            <TextView
+                android:id="@+id/item_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_20dp"
+                android:gravity="center_vertical"
+                android:text="@{itemDetail.url}"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_20sp" />
         </LinearLayout>
 
     </RelativeLayout>
