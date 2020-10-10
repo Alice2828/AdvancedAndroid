@@ -1,22 +1,12 @@
 package com.example.mvvm.viewmodel
 
-import androidx.lifecycle.MutableLiveData
+
+import androidx.lifecycle.LiveData
 import com.example.mvvm.data.model.ApiPost
-import com.example.mvvm.data.repository.RepoListRepository
+import com.example.mvvm.domain.GetRepoListUseCase
 
-class RepoListViewModel(val repoListRepository: RepoListRepository) : BaseViewModel() {
-    val repoListLive = MutableLiveData<List<ApiPost>>()
-
-    fun fetchRepoList() {
-        dataLoading.value = true
-        repoListRepository.getRepoList { isSuccess, response ->
-            dataLoading.value = false
-            if (isSuccess) {
-                repoListLive.value = response
-                empty.value = false
-            } else {
-                empty.value = true
-            }
-        }
+class RepoListViewModel(val getRepoListUseCase: GetRepoListUseCase) : BaseViewModel() {
+    fun fetchRepoList(): LiveData<List<ApiPost>> {
+        return getRepoListUseCase.getRepoList()
     }
 }

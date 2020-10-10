@@ -1,13 +1,14 @@
 package com.example.newsapp.adapter.viewholder
 
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.BR
-import com.example.newsapp.R
-import com.example.newsapp.data.model.ApiPost
 import com.example.newsapp.data.model.Articles
 import com.example.newsapp.databinding.ViewRepoListItemBinding
+import com.example.newsapp.view.DetailActivity
 import com.example.newsapp.view.DetailFragment
 import com.example.newsapp.viewmodel.RepoListViewModel
 import com.squareup.picasso.Picasso
@@ -29,11 +30,17 @@ class RepoListViewHolder constructor(
         Picasso.get().load(itemData.urlToImage).into(avatarImage)
 
         itemView.setOnClickListener {
-           // val context = itemView.context
-            val fragment = DetailFragment(itemData)
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.main_nav_fragment, fragment)
-                ?.commit()
+            //     val fragment = DetailFragment(itemData)
+//            activity?.supportFragmentManager?.beginTransaction()
+//                ?.replace(R.id.main_nav_fragment, fragment)
+//                ?.addToBackStack(null)
+//                ?.commit()
+            val context = itemView.context
+            val intent = Intent(context, DetailActivity::class.java)
+            val bundle = Bundle()
+            bundle.putSerializable("itemData", itemData)
+            intent.putExtras(bundle)
+            context.startActivity(intent)
         }
     }
 }
