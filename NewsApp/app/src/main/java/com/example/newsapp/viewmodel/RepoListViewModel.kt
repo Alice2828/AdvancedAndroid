@@ -1,23 +1,11 @@
 package com.example.newsapp.viewmodel
 
-import androidx.lifecycle.MutableLiveData
-import com.example.newsapp.data.model.ApiPost
+import androidx.lifecycle.LiveData
 import com.example.newsapp.data.model.Articles
-import com.example.newsapp.data.repository.RepoListRepository
+import com.example.newsapp.domain.GetRepoListUseCase
 
-class RepoListViewModel(val repoListRepository: RepoListRepository) : BaseViewModel() {
-    val repoListLive = MutableLiveData<List<Articles>>()
-
-    fun fetchRepoList() {
-        dataLoading.value = true
-        repoListRepository.getRepoList { isSuccess, response ->
-            dataLoading.value = false
-            if (isSuccess) {
-                repoListLive.value = response?.articles
-                empty.value = false
-            } else {
-                empty.value = true
-            }
-        }
+class RepoListViewModel(val getRepoListUseCase: GetRepoListUseCase) : BaseViewModel() {
+    fun fetchRepoList(): LiveData<List<Articles>> {
+        return getRepoListUseCase.getRepoList()
     }
 }

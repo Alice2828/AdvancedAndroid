@@ -2,6 +2,7 @@ package com.example.newsapp.data.api
 
 import android.content.SharedPreferences
 import com.example.newsapp.utils.Constants.Companion.BASE_URL
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,6 +16,7 @@ object ApiClient {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(okHttpClient)
             .build()
             .create(ApiService::class.java)
