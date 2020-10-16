@@ -3,13 +3,15 @@
 
     <item
         android:id="@+id/home"
+        android:icon="@drawable/ic_search"
         android:title="Лента" />
 <!--        android:icon="@drawable/ic_home"-->
 
     <item
         android:id="@+id/catygory"
+        android:icon="@drawable/ic_share"
         android:title="Категории" />
-<!--        android:icon="@drawable/ic_storage"-->
+<!--        -->
 
     <item
         android:id="@+id/like_posts"

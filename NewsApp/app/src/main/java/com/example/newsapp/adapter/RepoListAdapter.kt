@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.newsapp.adapter.viewholder.RepoListViewHolder
 import com.example.newsapp.data.model.ApiPost
 import com.example.newsapp.data.model.Articles

@@ -30,6 +30,11 @@ data class Articles(
     @SerializedName("content")
     val content: String
 ) : Serializable
+{
+    fun getSource():String{
+        return source.name
+    }
+}
 
 data class Source(
     @SerializedName("id")

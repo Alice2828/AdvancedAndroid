@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         list.add(RepoListFragment())
-        list.add(RepoListFragment())
+        //     list.add(RepoListFragment())
 //        list.add(fragmentLike)
 //        list.add(fragmentProfile)
         pager = findViewById(R.id.pager)
@@ -37,9 +37,9 @@ class MainActivity : AppCompatActivity() {
                     bundle.putString("page_name", "Main_page")
                 }
                 R.id.like_posts -> {
-                    pager.setCurrentItem(1, false)
-                    val bundle = Bundle()
-                    bundle.putString("page_name", "Like_page")
+//                    pager.setCurrentItem(1, false)
+//                    val bundle = Bundle()
+//                    bundle.putString("page_name", "Like_page")
                 }
             }
             false

@@ -9,6 +9,6 @@ import com.example.newsapp.utils.Constants.Companion.Api_key
 class RepoListDataStore(apiService: ApiService) : RepoListRepository, BaseDataStore(apiService) {
 
     override fun loadData(): LiveData<List<Articles>> {
-        return fetchData { service.getRepo(Api_key, "us") }
+        return fetchData { service.getRepo("us", Api_key) }
     }
 }
