@@ -8,6 +8,9 @@
         <variable
             name="viewmodel"
             type="com.example.newsapp.viewmodel.RepoListViewModel" />
+        <variable
+            name="fragment"
+            type="com.example.newsapp.view.RepoListFragment" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,9 +22,9 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            bind:onRefresh="@{viewmodel.onRefreshListener}"
-            bind:refreshState="@{viewmodel.isLoading}">
+            android:layout_height="match_parent">
+<!--            bind:onRefresh="@{fragment.onRefreshListener}"-->
+<!--            bind:refreshState="@{fragment.isLoading}">-->
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"

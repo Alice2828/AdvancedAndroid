@@ -35,7 +35,6 @@ class RepoListViewHolder constructor(
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(avatarImage)
 
-        //    Picasso.get().load(itemData.urlToImage).into(avatarImage)
 
         itemView.setOnClickListener {
             //     val fragment = DetailFragment(itemData)

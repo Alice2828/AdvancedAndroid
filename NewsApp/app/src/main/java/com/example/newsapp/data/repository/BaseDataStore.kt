@@ -11,7 +11,6 @@ import kotlinx.coroutines.*
 import timber.log.Timber
 
 abstract class BaseDataStore(@PublishedApi internal val service: ApiService) {
-
     abstract fun loadData(): LiveData<List<Articles>>
 
 
@@ -25,6 +24,7 @@ abstract class BaseDataStore(@PublishedApi internal val service: ApiService) {
                     if (response.isSuccessful) {
                         result.value = response.body()?.articles
                     } else {
+
                         Timber.d("Error occurred with code ${response.code()}")
                     }
                 } catch (e: HttpException) {
@@ -34,9 +34,7 @@ abstract class BaseDataStore(@PublishedApi internal val service: ApiService) {
                 }
             }
         }
-
         return result
     }
-
 
 }
