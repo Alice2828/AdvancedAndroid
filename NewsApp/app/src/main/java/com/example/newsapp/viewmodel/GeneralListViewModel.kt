@@ -3,11 +3,11 @@ package com.example.newsapp.viewmodel
 import androidx.lifecycle.LiveData
 import com.example.newsapp.data.model.Articles
 import com.example.newsapp.domain.GeneralList.GetGeneralListUseCase
-import com.example.newsapp.domain.RepoList.GetRepoListUseCase
 
-class RepoListViewModel(private val getRepoListUseCase: GetRepoListUseCase) : BaseViewModel() {
+class GeneralListViewModel(private val getGeneralListUseCase: GetGeneralListUseCase) :
+    BaseViewModel() {
 
     fun fetchRepoList(): LiveData<List<Articles>> {
-        return getRepoListUseCase.getRepoList()
+        return getGeneralListUseCase.getRepoList()
     }
 }

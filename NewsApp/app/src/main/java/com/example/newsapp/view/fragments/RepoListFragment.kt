@@ -1,4 +1,4 @@
-package com.example.newsapp.view
+package com.example.newsapp.view.fragments
 
 import android.content.Context
 import android.net.ConnectivityManager

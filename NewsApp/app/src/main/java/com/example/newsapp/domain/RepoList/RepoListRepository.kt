@@ -1,4 +1,4 @@
-package com.example.newsapp.domain
+package com.example.newsapp.domain.RepoList
 
 import androidx.lifecycle.LiveData
 import com.example.newsapp.data.model.Articles

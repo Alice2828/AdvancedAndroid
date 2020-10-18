@@ -12,9 +12,7 @@ import kotlinx.coroutines.*
 import timber.log.Timber
 
 abstract class BaseDataStore(@PublishedApi internal val service: ApiService) {
-    var errorCode = ""
     abstract fun loadData(): LiveData<List<Articles>>
-
 
     inline fun fetchData(crossinline call: (ApiService) -> Deferred<Response<ApiPost>>): LiveData<List<Articles>> {
         val result = MutableLiveData<List<Articles>>()
@@ -26,12 +24,6 @@ abstract class BaseDataStore(@PublishedApi internal val service: ApiService) {
                     if (response.isSuccessful) {
                         result.value = response.body()?.articles
                     } else {
-                        errorCode = "unknown error"
-                        when (response.code()) {
-                            404 -> errorCode = "404 not found"
-                            500 -> errorCode = "500 server broken"
-                        }
-
                         Timber.d("Error occurred with code ${response.code()}")
                     }
                 } catch (e: HttpException) {

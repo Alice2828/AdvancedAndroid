@@ -1,8 +1,7 @@
-package com.example.newsapp.view
+package com.example.newsapp.view.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -19,7 +18,6 @@ import com.example.newsapp.utils.Utils
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_detail.view.*
-import org.koin.core.definition.IndexKey
 import kotlin.math.abs
 
 

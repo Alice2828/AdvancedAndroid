@@ -7,7 +7,7 @@
 
         <variable
             name="fragment"
-            type="com.example.newsapp.view.RepoListFragment" />
+            type="com.example.newsapp.view.fragments.RepoListFragment" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
