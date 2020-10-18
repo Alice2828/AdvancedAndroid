@@ -116,28 +116,4 @@
         android:text="Выход"
         android:textColor="#000000" />
 
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/logout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
-        android:text="Do you want find cinema in your city?"
-        android:textColor="#000000" />
-
-
-    <Button
-        android:id="@+id/map"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_below="@+id/tv"
-        android:layout_centerInParent="true"
-        android:background="@null"
-        android:text="Click here"
-        android:textColor="#000000">
-
-
-    </Button>
-
 </RelativeLayout>

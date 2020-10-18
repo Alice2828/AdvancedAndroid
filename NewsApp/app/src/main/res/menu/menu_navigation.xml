@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/top"
-        android:icon="@drawable/icon_news"
+        android:icon="@drawable/ic_top"
         android:title="Top" />
 
     <item
         android:id="@+id/all"
-        android:icon="@drawable/icon_news"
+        android:icon="@drawable/ic_search"
         android:title="General" />
 
     <item
         android:id="@+id/profile"
-        android:icon="@drawable/icon_news"
+        android:icon="@drawable/ic_account_circle_black_24dp"
         android:title="Profile" />
 
 </menu>

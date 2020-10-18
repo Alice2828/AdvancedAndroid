@@ -9,6 +9,7 @@ import com.example.newsapp.R
 import com.example.newsapp.adapter.SlidePagerAdapter
 import com.example.newsapp.view.fragments.GeneralListFragment
 import com.example.newsapp.view.LockableViewPager
+import com.example.newsapp.view.fragments.ProfileFragment
 import com.example.newsapp.view.fragments.RepoListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         list.add(RepoListFragment())
         list.add(GeneralListFragment())
-//        list.add(fragmentLike)
+        list.add(ProfileFragment())
 //        list.add(fragmentProfile)
         pager = findViewById(R.id.pager)
         pager.setSwipable(false)
@@ -41,9 +42,7 @@ class MainActivity : AppCompatActivity() {
                     pager.setCurrentItem(1, false)
                 }
                 R.id.profile -> {
-//                    pager.setCurrentItem(1, false)
-//                    val bundle = Bundle()
-//                    bundle.putString("page_name", "Like_page")
+                    pager.setCurrentItem(2, false)
                 }
             }
             false
