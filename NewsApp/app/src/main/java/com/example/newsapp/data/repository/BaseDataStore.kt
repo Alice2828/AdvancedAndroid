@@ -2,6 +2,7 @@ package com.example.newsapp.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.newsapp.R
 import com.example.newsapp.data.api.ApiService
 import com.example.newsapp.data.model.ApiPost
 import com.example.newsapp.data.model.Articles
@@ -11,6 +12,7 @@ import kotlinx.coroutines.*
 import timber.log.Timber
 
 abstract class BaseDataStore(@PublishedApi internal val service: ApiService) {
+    var errorCode = ""
     abstract fun loadData(): LiveData<List<Articles>>
 
 
@@ -24,6 +26,11 @@ abstract class BaseDataStore(@PublishedApi internal val service: ApiService) {
                     if (response.isSuccessful) {
                         result.value = response.body()?.articles
                     } else {
+                        errorCode = "unknown error"
+                        when (response.code()) {
+                            404 -> errorCode = "404 not found"
+                            500 -> errorCode = "500 server broken"
+                        }
 
                         Timber.d("Error occurred with code ${response.code()}")
                     }

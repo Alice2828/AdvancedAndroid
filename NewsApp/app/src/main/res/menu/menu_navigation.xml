@@ -2,20 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/home"
-        android:icon="@drawable/ic_search"
-        android:title="Лента" />
-<!--        android:icon="@drawable/ic_home"-->
+        android:id="@+id/top"
+        android:icon="@drawable/icon_news"
+        android:title="Top" />
 
     <item
-        android:id="@+id/catygory"
-        android:icon="@drawable/ic_share"
-        android:title="Категории" />
-<!--        -->
+        android:id="@+id/all"
+        android:icon="@drawable/icon_news"
+        android:title="General" />
 
     <item
-        android:id="@+id/like_posts"
-        android:title="Закладки" />
-<!--        android:icon="@drawable/ic_favorite"-->
+        android:id="@+id/profile"
+        android:icon="@drawable/icon_news"
+        android:title="Profile" />
 
 </menu>

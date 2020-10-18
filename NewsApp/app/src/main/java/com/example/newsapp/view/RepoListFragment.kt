@@ -1,22 +1,21 @@
 package com.example.newsapp.view
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.BindingAdapter
-import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.newsapp.R
 import com.example.newsapp.adapter.RepoListAdapter
-import com.example.newsapp.data.model.Articles
 import com.example.newsapp.databinding.FragmentRepoListBinding
 import com.example.newsapp.viewmodel.RepoListViewModel
+import kotlinx.android.synthetic.main.error.*
 import kotlinx.android.synthetic.main.fragment_repo_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -47,7 +46,9 @@ class RepoListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         swipe_refresh_view.setOnRefreshListener {
+            errorLayout.visibility = View.GONE
             setUpViewModel()
         }
         setUpViewModel()
@@ -84,9 +85,38 @@ class RepoListFragment : Fragment() {
                 )
             )
             repo_list_rv.adapter = adapter
+
+            if (!hasConnection(context!!)) {
+                showErrorMessage(R.drawable.no_result, "No Result", "Please, swipe to refresh")
+            }
         }
     }
 
+    fun showErrorMessage(imageView: Int, title: String, message: String) {
+
+        if (errorLayout.visibility == View.GONE) {
+            errorLayout.visibility = View.VISIBLE
+        }
+        errorImage.setImageResource(imageView)
+        errorTitle.text = title
+        errorMessage.text = message
+    }
+}
+
+
+fun hasConnection(context: Context): Boolean {
+    val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    var wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+    if (wifiInfo != null && wifiInfo.isConnected) {
+        return true
+    }
+    wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+    if (wifiInfo != null && wifiInfo.isConnected) {
+        return true
+    }
+    wifiInfo = cm.activeNetworkInfo
+    return wifiInfo != null && wifiInfo.isConnected
+}
 
 //    fun getOnRefreshListener(): SwipeRefreshLayout.OnRefreshListener {
 //        return this
@@ -112,5 +142,4 @@ class RepoListFragment : Fragment() {
 //            mIsLoading.set(false)
 //    }
 
-}
 

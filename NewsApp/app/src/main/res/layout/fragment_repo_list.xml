@@ -8,6 +8,7 @@
         <variable
             name="viewmodel"
             type="com.example.newsapp.viewmodel.RepoListViewModel" />
+
         <variable
             name="fragment"
             type="com.example.newsapp.view.RepoListFragment" />
@@ -19,12 +20,14 @@
         android:layout_height="match_parent"
         android:background="@color/colorBackground">
 
+        <include layout="@layout/error" />
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-<!--            bind:onRefresh="@{fragment.onRefreshListener}"-->
-<!--            bind:refreshState="@{fragment.isLoading}">-->
+            <!--            bind:onRefresh="@{fragment.onRefreshListener}"-->
+            <!--            bind:refreshState="@{fragment.isLoading}">-->
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"

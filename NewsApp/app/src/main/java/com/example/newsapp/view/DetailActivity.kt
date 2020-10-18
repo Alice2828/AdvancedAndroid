@@ -1,8 +1,13 @@
 package com.example.newsapp.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.ContextMenu
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
@@ -14,6 +19,7 @@ import com.example.newsapp.utils.Utils
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_detail.view.*
+import org.koin.core.definition.IndexKey
 import kotlin.math.abs
 
 
@@ -40,7 +46,7 @@ class DetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener
             .load(itemDetail.urlToImage)
             .into(imageView)
         time.text = utils.DateToTimeFormat(itemDetail.publishedAt)
-     }
+    }
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -77,5 +83,31 @@ class DetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener
         webView.scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
         webView.webViewClient = WebViewClient()
         webView.loadUrl(url)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.detail_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == R.id.share) {
+            try {
+                val i = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(
+                        Intent.EXTRA_TEXT,
+                        itemDetail.title + "\n" + itemDetail.url + "\n" + "Share from the NewsApp" + "\n"
+                    )
+                    type = "text/plain"
+
+                }
+                startActivity(Intent.createChooser(i, "Share with:"))
+            } catch (e: Exception) {
+                Toast.makeText(this, "Hmm...Sorry, /nCan not be shared", Toast.LENGTH_LONG).show()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
