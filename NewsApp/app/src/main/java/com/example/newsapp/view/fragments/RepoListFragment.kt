@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.newsapp.R
 import com.example.newsapp.adapter.RepoListAdapter
 import com.example.newsapp.databinding.FragmentRepoListBinding
@@ -47,19 +48,19 @@ class RepoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        swipe_refresh_view.setOnRefreshListener {
-            errorLayout.visibility = View.GONE
-            setUpViewModel()
-        }
+//        swipe_refresh_view.setOnRefreshListener {
+//            errorLayout.visibility = View.GONE
+//            setUpViewModel()
+//        }
         setUpViewModel()
     }
 
     private fun setUpViewModel() {
-        swipe_refresh_view.isRefreshing = true
+        //    swipe_refresh_view.isRefreshing = true
         viewDataBinding.viewmodel?.fetchRepoList()
         setupAdapter()
         setObservers()
-        swipe_refresh_view.isRefreshing = false
+        //    swipe_refresh_view.isRefreshing = false
 
     }
 
@@ -88,6 +89,8 @@ class RepoListFragment : Fragment() {
 
             if (!hasConnection(context!!)) {
                 showErrorMessage(R.drawable.no_result, "No Result", "Please, swipe to refresh")
+            } else {
+                errorLayout.visibility = View.GONE
             }
         }
     }
@@ -117,9 +120,13 @@ fun hasConnection(context: Context): Boolean {
     wifiInfo = cm.activeNetworkInfo
     return wifiInfo != null && wifiInfo.isConnected
 }
-
+//val mOnrefreshListener : SwipeRefreshLayout.OnRefreshListener{
+//    override onRefresh(){
+//
+//    }
+//}
 //    fun getOnRefreshListener(): SwipeRefreshLayout.OnRefreshListener {
-//        return this
+//        return mOnrefreshListener
 //    }
 //
 //    fun getIsLoading(): ObservableBoolean {
