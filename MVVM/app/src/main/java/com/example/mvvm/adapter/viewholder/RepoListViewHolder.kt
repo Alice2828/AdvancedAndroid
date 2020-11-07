@@ -34,6 +34,7 @@ class RepoListViewHolder constructor(
             val fragment = DetailFragment(itemData)
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.main_nav_fragment, fragment)
+                ?.addToBackStack("tag")
                 ?.commit()
         }
     }

@@ -17,6 +17,7 @@ class MainApplication : Application() {
             koin.loadModules(
                 listOf(
                     repositoryModule,
+                    databaseModule,
                     networkModule,
                     useCaseModule,
                     sharedPrefModule,

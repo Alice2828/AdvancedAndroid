@@ -1,5 +1,6 @@
 package com.example.mvvm.data.api
 
+import android.content.Context
 import android.content.SharedPreferences
 import com.example.mvvm.utils.Constants.Companion.BASE_URL
 import com.example.mvvm.utils.Constants.Companion.DEBUG
@@ -14,15 +15,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiClient {
-
-    fun create(okHttpClient: OkHttpClient): ApiService {
-        return Retrofit.Builder()
+    fun create(okHttpClient: OkHttpClient, mContext: Context): ApiService {
+        val apiService = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(okHttpClient)
             .build()
             .create(ApiService::class.java)
+      //  apiService.context = mContext
+        return apiService
     }
 
     fun getOkHttpClient(authInterceptor: Interceptor): OkHttpClient {
@@ -48,4 +50,8 @@ object ApiClient {
             chain.proceed(newRequest)
         }
     }
+}
+
+class ApiClientContext(context: Context) {
+    val context = context
 }

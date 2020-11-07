@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -39,11 +38,20 @@ class RepoListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        swipe_refresh_view.setOnRefreshListener {
+            setUpViewModel()
+        }
+        setUpViewModel()
+
+    }
+
+    private fun setUpViewModel() {
+        swipe_refresh_view.isRefreshing = true
         viewDataBinding.viewmodel?.fetchRepoList()
         setupAdapter()
         setObservers()
+        swipe_refresh_view.isRefreshing = false
     }
-
 
     private fun setObservers() {
         viewDataBinding.viewmodel?.fetchRepoList()?.observe(viewLifecycleOwner, Observer {
