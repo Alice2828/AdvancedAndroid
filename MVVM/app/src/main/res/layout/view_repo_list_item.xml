@@ -7,7 +7,7 @@
 
         <variable
             name="itemData"
-            type="com.example.mvvm.data.model.ApiPost" />
+            type="com.example.mvvm.data.model.Articles" />
 
     </data>
 

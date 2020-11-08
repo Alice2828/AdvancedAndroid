@@ -16,16 +16,23 @@ class MainApplication : Application() {
             androidContext(this@MainApplication)
             koin.loadModules(
                 listOf(
-                    repositoryModule,
                     databaseModule,
                     networkModule,
-                    useCaseModule,
                     sharedPrefModule,
                     viewModelModule
                 )
             )
+//            koin.loadModules(
+//                listOf(
+//                    repositoryModule,
+//                    databaseModule,
+//                    networkModule,
+//                    useCaseModule,
+//                    sharedPrefModule,
+//                    viewModelModule
+//                )
+//            )
             koin.createRootScope()
-            // modules(repositoryModule,networkModule, sharedPrefModule, viewModelModule)
         }
     }
 }

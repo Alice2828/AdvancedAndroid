@@ -1,81 +1,174 @@
 package com.example.mvvm.data.repository
 
-
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.paging.PageKeyedDataSource
 import com.example.mvvm.data.api.ApiService
 import com.example.mvvm.data.model.ApiPost
-import com.example.mvvm.database.PostDao
-//import com.example.mvvm.database.PostDao
-//import com.example.mvvm.database.PostDatabase
-import retrofit2.HttpException
-import retrofit2.Response
+import com.example.mvvm.data.model.Articles
+import com.example.mvvm.database.ArticleDao
+import com.example.mvvm.utils.Constants.Companion.Api_key
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.await
 import timber.log.Timber
 
-abstract class BaseDataStore(@PublishedApi internal val service: ApiService, var dao: PostDao) {
+class BaseDataStore(@PublishedApi internal val service: ApiService, var dao: ArticleDao) :
+    PageKeyedDataSource<Int, Articles>() {
 
-    abstract fun loadData(): LiveData<List<ApiPost>>
-
-    inline fun fetchData(crossinline call: (ApiService) -> Deferred<Response<List<ApiPost>>>): LiveData<List<ApiPost>> {
-        val result = MutableLiveData<List<ApiPost>>()
+    override fun loadInitial(
+        params: LoadInitialParams<Int>,
+        callback: LoadInitialCallback<Int, Articles>
+    ) {
+//        val call = service.getRepo("us", FIRST_PAGE, Api_key)
+//
+//        call.enqueue(object : Callback<ApiPost> {
+//            override fun onFailure(call: Call<ApiPost>, t: Throwable) {
+//            }
+//
+//            override fun onResponse(call: Call<ApiPost>, response: Response<ApiPost>) {
+//                if(response.isSuccessful){
+//                    val apiResponse = response.body()!!
+//                    val responseItems = apiResponse.articles
+//
+//                    responseItems.let {
+//                        callback.onResult(responseItems,null, FIRST_PAGE+1)
+//                    }
+//                }
+//
+//            }
+//
+//        })
 
         CoroutineScope(Dispatchers.IO).launch {
+            val request = service.getRepo("us", FIRST_PAGE, Api_key)
 
-            val request = call(service)
-
-            withContext(Dispatchers.Main) {
-                try {
+            try {
+                withContext(Dispatchers.Main) {
                     val response = request.await()
-                    if (response.isSuccessful) {
-                        result.value = response.body()
-                        result.value?.let { dao.insertAll(it) }
-                    } else {
-                        val data = withContext(Dispatchers.IO) {
-                            dao.getAll()
-                        }
-                        if (data.isNotEmpty()) {
-                            result.value = dao.getAll()
-                            Timber.d("Error occurred with code ${response.code()}")
+                    when {
+                        response.isSuccessful -> {
+                            val listing = response.body()?.articles
+                            if (listing != null) {
+                                callback.onResult(listing, null, FIRST_PAGE + 1)
+                            }
                         }
                     }
-                } catch (e: HttpException) {
-                    val data = withContext(Dispatchers.IO) {
-                        dao.getAll()
-                    }
-                    if (data.isNotEmpty()) {
-                        result.value = dao.getAll()
-                    }
-                    Timber.d("Error: ${e.message()}")
-                } catch (e: Throwable) {
-                    val data = withContext(Dispatchers.IO) {
-                        dao.getAll()
-                    }
-                    if (data.isNotEmpty()) {
-                        result.value = dao.getAll()
-                    }
-                    Timber.d("Error: ${e.message}")
                 }
+
+            } catch (exception: Exception) {
+                Timber.e("Failed to fetch data!")
             }
         }
-        return result
+
     }
 
-//    sealed class AppResult<out T> {
 //
-//        data class Success<out T>(val successData : T) : AppResult<T>()
-//        class Error(val exception: java.lang.Exception, val message: String = exception.localizedMessage)
-//            : AppResult<Nothing>()
+//    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Articles>) {
+//        val call = service.getRepo("us", params.key, Api_key)
+//
+//        call.enqueue(object : Callback<ApiPost> {
+//            override fun onFailure(call: Call<ApiPost>, t: Throwable) {
+//            }
+//
+//            override fun onResponse(call: Call<ApiPost>, response: Response<ApiPost>) {
+//                if (response.isSuccessful) {
+//                    val apiResponse = response.body()!!
+//                    val responseItems = apiResponse.articles
+//
+//                    val key = params.key + 1
+//
+//                    responseItems.let {
+//                        callback.onResult(responseItems, key)
+//                    }
+//                }
+//
+//            }
+//
+//        })
+//
 //    }
 //
-//    fun <T : Any> handleApiError(resp: Response<T>): AppResult.Error {
-//        val error = ApiErrorUtils.parseError(resp)
-//        return AppResult.Error(Exception(error.message))
-//    }
+//    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Articles>) {
+//        val call = service.getRepo("us", params.key, Api_key)
 //
-//    fun <T : Any> handleSuccess(response: Response<T>): AppResult<T> {
-//        response.body()?.let {
-//            return AppResult.Success(it)
-//        } ?: return handleApiError(response)
+//
+//        call.enqueue(object : Callback<ApiPost> {
+//            override fun onFailure(call: Call<ApiPost>, t: Throwable) {
+//            }
+//
+//            override fun onResponse(call: Call<ApiPost>, response: Response<ApiPost>) {
+//                if (response.isSuccessful) {
+//                    val apiResponse = response.body()!!
+//                    val responseItems = apiResponse.articles
+//
+//                    val key = if (params.key > 1) params.key - 1 else 0
+//
+//                    responseItems.let {
+//                        callback.onResult(responseItems, key)
+//                    }
+//                }
+//
+//            }
+//
+//        })
+//
 //    }
+
+
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Articles>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val request = service.getRepo("us", FIRST_PAGE, Api_key)
+            try {
+                withContext(Dispatchers.Main) {
+                    val response = request.await()
+                    when {
+                        response.isSuccessful -> {
+                            val listing = response.body()?.articles
+                            val key = params.key + 1
+                            if (listing != null) {
+                                callback.onResult(listing, key)
+                            }
+                        }
+                    }
+                }
+            } catch (exception: Exception) {
+                Timber.e("Failed to fetch data!")
+            }
+
+        }
+    }
+
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Articles>) {
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val request = service.getRepo("us", FIRST_PAGE, Api_key)
+            try {
+                withContext(Dispatchers.Main) {
+                    val response = request.await()
+                    when {
+                        response.isSuccessful -> {
+                            val listing = response.body()?.articles
+                            val key = if (params.key > 1) params.key - 1 else 0
+                            if (listing != null) {
+                                callback.onResult(listing, key)
+                            }
+                        }
+                    }
+                }
+
+            } catch (exception: Exception) {
+                Timber.e("Failed to fetch data!")
+            }
+
+
+        }
+    }
+
+    companion object {
+        const val PAGE_SIZE = 6
+        const val FIRST_PAGE = 1
+
+    }
+
 }
