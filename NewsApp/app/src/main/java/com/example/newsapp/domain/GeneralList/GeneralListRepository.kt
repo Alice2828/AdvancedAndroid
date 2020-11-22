@@ -5,4 +5,5 @@ import com.example.newsapp.data.model.Articles
 
 interface GeneralListRepository {
     fun loadData(): LiveData<List<Articles>>
+    fun loadDataSearchable(keyword:String): LiveData<List<Articles>>
 }

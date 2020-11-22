@@ -18,6 +18,7 @@ class MainApplication : Application() {
                 listOf(
                     repositoryModule,
                     useCaseModule,
+                    databaseModule,
                     networkModule,
                     sharedPrefModule,
                     viewModelModule

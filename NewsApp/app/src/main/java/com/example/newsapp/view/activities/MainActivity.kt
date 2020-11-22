@@ -1,7 +1,11 @@
 package com.example.newsapp.view.activities
 
+import android.app.SearchManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.PagerAdapter
@@ -14,7 +18,6 @@ import com.example.newsapp.view.fragments.RepoListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var fragmentManager: FragmentManager
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var pager: LockableViewPager
     private var list: MutableList<Fragment> = ArrayList()
@@ -27,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         list.add(RepoListFragment())
         list.add(GeneralListFragment())
         list.add(ProfileFragment())
-//        list.add(fragmentProfile)
         pager = findViewById(R.id.pager)
         pager.setSwipable(false)
         bottomNavigationView = findViewById(R.id.bottom_navigation)
@@ -50,6 +52,4 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
-
 }

@@ -7,7 +7,7 @@ import com.example.newsapp.domain.GeneralList.GetGeneralListUseCase
 class GeneralListViewModel(private val getGeneralListUseCase: GetGeneralListUseCase) :
     BaseViewModel() {
 
-    fun fetchRepoList(): LiveData<List<Articles>> {
-        return getGeneralListUseCase.getRepoList()
+    fun fetchRepoList(keyword:String): LiveData<List<Articles>> {
+        return getGeneralListUseCase.getRepoList(keyword)
     }
 }

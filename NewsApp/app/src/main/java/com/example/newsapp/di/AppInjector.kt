@@ -1,9 +1,13 @@
 package com.example.newsapp.di
 
+import android.app.Application
 import android.content.SharedPreferences
+import androidx.room.Room
 import com.example.newsapp.data.api.ApiClient
 import com.example.newsapp.data.repository.GeneralListDataStore
 import com.example.newsapp.data.repository.RepoListDataStore
+import com.example.newsapp.database.ArticleDao
+import com.example.newsapp.database.ArticleDatabase
 import com.example.newsapp.domain.GeneralList.GetGeneralListUseCase
 import com.example.newsapp.domain.RepoList.GetRepoListUseCase
 import com.example.newsapp.viewmodel.GeneralListViewModel
@@ -17,13 +21,33 @@ val viewModelModule = module {
     viewModel { RepoListViewModel(get()) }
     viewModel { GeneralListViewModel(get()) }
 }
+
+val databaseModule = module {
+
+    fun provideDatabase(application: Application): ArticleDatabase {
+        return Room.databaseBuilder(
+            application,
+            ArticleDatabase::class.java,
+            "artic_database.db"
+        ).allowMainThreadQueries()
+            .build()
+    }
+
+    fun provideDao(database: ArticleDatabase): ArticleDao {
+        return database.articleDao()
+    }
+
+    single { provideDatabase(androidApplication()) }
+    single { provideDao(get()) }
+}
+
 val useCaseModule = module {
     single { GetRepoListUseCase(get<RepoListDataStore>()) }
     single { GetGeneralListUseCase(get<GeneralListDataStore>()) }
 }
 val repositoryModule = module {
-    single { RepoListDataStore(get()) }
-    single { GeneralListDataStore(get()) }
+    single { RepoListDataStore(get(), get()) }
+    single { GeneralListDataStore(get(), get()) }
 }
 
 val networkModule = module {

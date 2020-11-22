@@ -2,6 +2,7 @@ package com.example.newsapp.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.newsapp.R
 import com.example.newsapp.data.api.ApiService
 import com.example.newsapp.data.model.ApiPost
 import com.example.newsapp.data.model.Articles
@@ -11,8 +12,9 @@ import retrofit2.Response
 import kotlinx.coroutines.*
 import timber.log.Timber
 
-abstract class BaseDataStore(@PublishedApi internal val service: ApiService, var dao: ArticleDao) {
+abstract class BaseDataStoreGeneral(@PublishedApi internal val service: ApiService, var dao: ArticleDao) {
     abstract fun loadData(): LiveData<List<Articles>>
+    abstract fun loadDataSearchable(keyword: String): LiveData<List<Articles>>
 
     inline fun fetchData(crossinline call: (ApiService) -> Deferred<Response<ApiPost>>): LiveData<List<Articles>> {
         val result = MutableLiveData<List<Articles>>()
@@ -23,31 +25,12 @@ abstract class BaseDataStore(@PublishedApi internal val service: ApiService, var
                     val response = request.await()
                     if (response.isSuccessful) {
                         result.value = response.body()?.articles
-                        result.value?.let { dao.insertAll(it) }
                     } else {
-                        val data = withContext(Dispatchers.IO) {
-                            dao.getAll()
-                        }
-                        if (data.isNotEmpty()) {
-                            result.value = dao.getAll()
-                            Timber.d("Error occurred with code ${response.code()}")
-                        }
+                        Timber.d("Error occurred with code ${response.code()}")
                     }
                 } catch (e: HttpException) {
-                    val data = withContext(Dispatchers.IO) {
-                        dao.getAll()
-                    }
-                    if (data.isNotEmpty()) {
-                        result.value = dao.getAll()
-                    }
                     Timber.d("Error: ${e.message()}")
                 } catch (e: Throwable) {
-                    val data = withContext(Dispatchers.IO) {
-                        dao.getAll()
-                    }
-                    if (data.isNotEmpty()) {
-                        result.value = dao.getAll()
-                    }
                     Timber.d("Error: ${e.message}")
                 }
             }
