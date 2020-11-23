@@ -1,6 +1,7 @@
 package com.example.newsapp.data.model
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -42,5 +43,15 @@ data class Articles(
     @SerializedName("content")
     val content: String,
     @SerializedName("like")
-    val like: Boolean? = false
+    var like: Boolean? = false
+) : Serializable
+
+@Entity(tableName = "likes_table")
+data class Likes(
+    @PrimaryKey(autoGenerate = true)
+    @SerializedName("likesId")
+    var likesId: Long = 0,
+    @Embedded
+    @SerializedName("post")
+    var post: Articles
 ) : Serializable

@@ -11,5 +11,10 @@
         android:icon="@drawable/ic_share"
         android:title="Share"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/like"
+        android:icon="@drawable/ic_favorite_border"
+        android:title="Like"
+        app:showAsAction="always" />
 
 </menu>

@@ -148,12 +148,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:text="@{itemData.publishedAt}" />
-                <Button
-                    android:id="@+id/like"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_below="@id/time"
-                    android:text="like"/>
+
 
 
             </RelativeLayout>

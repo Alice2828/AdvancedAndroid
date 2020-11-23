@@ -115,5 +115,15 @@
         android:background="@null"
         android:text="Выход"
         android:textColor="#000000" />
+    <Button
+        android:id="@+id/saved"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_below="@+id/logout"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:text="Saved"
+        android:textColor="#000000" />
 
 </RelativeLayout>

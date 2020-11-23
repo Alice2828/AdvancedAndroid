@@ -9,10 +9,14 @@ import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.PagerAdapter
+import com.example.newsapp.Likes
 import com.example.newsapp.R
 import com.example.newsapp.adapter.SlidePagerAdapter
+import com.example.newsapp.database.LikesDao
+import com.example.newsapp.database.LikesDatabase
 import com.example.newsapp.view.fragments.GeneralListFragment
 import com.example.newsapp.view.LockableViewPager
+import com.example.newsapp.view.fragments.LikesFragment
 import com.example.newsapp.view.fragments.ProfileFragment
 import com.example.newsapp.view.fragments.RepoListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,12 +27,13 @@ class MainActivity : AppCompatActivity() {
     private var list: MutableList<Fragment> = ArrayList()
     private lateinit var pagerAdapter: PagerAdapter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Likes.getInstance()
         list.add(RepoListFragment())
         list.add(GeneralListFragment())
+        list.add(LikesFragment())
         list.add(ProfileFragment())
         pager = findViewById(R.id.pager)
         pager.setSwipable(false)
@@ -43,8 +48,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.all -> {
                     pager.setCurrentItem(1, false)
                 }
-                R.id.profile -> {
+                R.id.likes -> {
                     pager.setCurrentItem(2, false)
+                }
+                R.id.profile -> {
+                    pager.setCurrentItem(3, false)
                 }
             }
             false

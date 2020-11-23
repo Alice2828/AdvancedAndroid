@@ -10,6 +10,10 @@
         android:id="@+id/all"
         android:icon="@drawable/ic_search"
         android:title="General" />
+    <item
+        android:id="@+id/likes"
+        android:icon="@drawable/ic_favorite_border"
+        android:title="Likes" />
 
     <item
         android:id="@+id/profile"

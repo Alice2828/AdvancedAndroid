@@ -8,9 +8,12 @@ import com.example.newsapp.data.repository.GeneralListDataStore
 import com.example.newsapp.data.repository.RepoListDataStore
 import com.example.newsapp.database.ArticleDao
 import com.example.newsapp.database.ArticleDatabase
+import com.example.newsapp.database.LikesDao
+import com.example.newsapp.database.LikesDatabase
 import com.example.newsapp.domain.GeneralList.GetGeneralListUseCase
 import com.example.newsapp.domain.RepoList.GetRepoListUseCase
 import com.example.newsapp.viewmodel.GeneralListViewModel
+import com.example.newsapp.viewmodel.LikesViewModel
 import com.example.newsapp.viewmodel.RepoListViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
@@ -18,7 +21,8 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 
 
 val viewModelModule = module {
-    viewModel { RepoListViewModel(get()) }
+  //  viewModel { LikesViewModel(get()) }
+    viewModel { RepoListViewModel(get(), get()) }
     viewModel { GeneralListViewModel(get()) }
 }
 
@@ -37,8 +41,23 @@ val databaseModule = module {
         return database.articleDao()
     }
 
+//    fun provideLikesDatabase(application: Application): LikesDatabase {
+//        return Room.databaseBuilder(
+//            application,
+//            LikesDatabase::class.java,
+//            "likes_database.db"
+//        ).allowMainThreadQueries()
+//            .build()
+//    }
+//
+//    fun provideLikesDao(database: LikesDatabase): LikesDao {
+//        return database.likesDao()
+//    }
+
     single { provideDatabase(androidApplication()) }
     single { provideDao(get()) }
+//    single { provideLikesDatabase(androidApplication()) }
+//    single { provideLikesDao(get()) }
 }
 
 val useCaseModule = module {
