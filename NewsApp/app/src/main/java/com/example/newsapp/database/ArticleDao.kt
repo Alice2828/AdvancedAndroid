@@ -44,18 +44,36 @@ abstract class ArticleDatabase : RoomDatabase() {
 
     companion object {
         private var INSTANCE: ArticleDatabase? = null
+        private var name: String = ""
 
-        fun getDatabase(context: Context, name: String): ArticleDatabase {
-            val nameDB= "$name.db"
+        fun getDatabase(context: Context, emailName: String): ArticleDatabase {
+            val nameDB = "$emailName.db"
+            val listDB = ArrayList<ArticleDatabase>()
+            val listNames = ArrayList<String>()
             if (INSTANCE == null) {
-                INSTANCE = Room.databaseBuilder(
-                    context.applicationContext,
-                    ArticleDatabase::class.java,
-                    nameDB
-                ).allowMainThreadQueries()
-                    .build()
+                INSTANCE = createDb(context, nameDB)
+                name = nameDB
+                listDB.add(INSTANCE!!)
+                listNames.add(nameDB)
+            } else {
+                if (name != nameDB) {
+                    if (!listNames.contains(nameDB)) {
+                        INSTANCE = createDb(context, nameDB)
+                        name = nameDB
+                    } else {
+                        INSTANCE = listDB[listNames.indexOf(nameDB)]
+                    }
+                }
             }
             return INSTANCE!!
+        }
+
+        private fun createDb(context: Context, nameDB: String): ArticleDatabase {
+            return Room.databaseBuilder(
+                context.applicationContext,
+                ArticleDatabase::class.java,
+                nameDB
+            ).allowMainThreadQueries().build()
         }
     }
 
