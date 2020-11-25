@@ -13,20 +13,9 @@ interface LikesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(post: Likes?)
-//    @Query("INSERT INTO likes_table(articleId) VALUES(SELECT id FROM article_table where id=:id)")
-//    fun insert(post: Likes)
-
-    //    @Query("WITH ins(id) AS (VALUES(:id)) INSERT INTO likes_table (articleId) SELECT ins.id FROM articles_table JOIN ins ON ins.id = articleId")
-//    fun insert(id: Long)
 
     @Query("SELECT COALESCE(MAX(likesId),0) from likes_table")
     fun queryLastInsert(): Long
-
-//    @Query("UPDATE likes_table set articleTitle=(SELECT title FROM articles_table where title=(:articleTitle)) WHERE likesId=(:index)")
-//    fun update(articleTitle: Long, id: Long)
-
-//    @Query("INSERT INTO likes_table(articleId) VALUES(SELECT id FROM articles_table WHERE id=(:id))")
-//    fun insert(index: Int, id: Long)
 
     @Query("DELETE FROM likes_table where articleTitle=:title")
     fun remove(title: String)
@@ -56,12 +45,13 @@ abstract class ArticleDatabase : RoomDatabase() {
     companion object {
         private var INSTANCE: ArticleDatabase? = null
 
-        fun getDatabase(context: Context): ArticleDatabase {
+        fun getDatabase(context: Context, name: String): ArticleDatabase {
+            val nameDB= "$name.db"
             if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder(
                     context.applicationContext,
                     ArticleDatabase::class.java,
-                    "artiCLES1_database.db"
+                    nameDB
                 ).allowMainThreadQueries()
                     .build()
             }

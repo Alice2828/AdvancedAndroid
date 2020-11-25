@@ -1,6 +1,7 @@
 package com.example.newsapp.data.repository
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.newsapp.data.api.ApiService
@@ -15,7 +16,10 @@ import timber.log.Timber
 
 abstract class BaseDataStore(@PublishedApi internal val service: ApiService, var context: Context) {
     abstract fun loadData(): LiveData<List<Articles>>
-    var dao: ArticleDao = ArticleDatabase.getDatabase(context).articleDao()
+    private var preferences = context.getSharedPreferences("my_preferences", MODE_PRIVATE)
+    private var name = preferences.getString("emailName", "")!!
+
+    var dao: ArticleDao = ArticleDatabase.getDatabase(context, name).articleDao()
 
     inline fun fetchData(crossinline call: (ApiService) -> Deferred<Response<ApiPost>>): LiveData<List<Articles>> {
         val result = MutableLiveData<List<Articles>>()

@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical"
-    tools:context=".view.activities.LoginActivity">
-
+    tools:context=".view.activities.RegistrationActivity">
 
     <View
         android:id="@+id/bgHeader"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimaryDark"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv"
@@ -39,10 +38,21 @@
                 android:layout_height="29dp"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="ЛОГИН"
+                android:text="РЕГИСТРАЦИЯ"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:hint="Имя"
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/email"
@@ -54,16 +64,6 @@
                 android:hint="Email"
                 android:inputType="textEmailAddress" />
 
-            <!--            <EditText-->
-            <!--                android:id="@+id/password"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:hint="Пароль"-->
-            <!--                android:layout_marginTop="20dp"-->
-
-            <!--                android:layout_marginLeft="10dp"-->
-            <!--                android:layout_marginRight="10dp"-->
-            <!--                android:inputType="textPassword" />-->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,75 +78,46 @@
                     android:layout_marginRight="10dp"
                     android:hint="Пароль"
                     android:inputType="textPassword" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="200dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="10dp"
-                android:text="Забыли пароль?"
-                android:textColor="#000000"
-                android:textStyle="bold" />
-
             <Button
-                android:id="@+id/login"
+                android:id="@+id/register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
-                android:onClick="onClick"
                 android:layout_marginRight="10dp"
                 android:background="@color/colorPrimaryDark"
-                android:text="Логин"
+                android:text="РЕГИСТРАЦИЯ"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="У меня нет аккаунта?" />
-
-                <Button
-                    android:id="@+id/register"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:background="@null"
-                    android:text="Регистрация"
-                    android:onClick="onRegister"
-                    android:textColor="#000000"
-                    android:textStyle="bold" />
-            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cv"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.059" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="Уже есть аккаунт?" />
 
+        <Button
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="LOGIN NOW"
+            android:textColor="#000000"
+            android:textStyle="bold"
+
+            />
+    </LinearLayout>
 </RelativeLayout>

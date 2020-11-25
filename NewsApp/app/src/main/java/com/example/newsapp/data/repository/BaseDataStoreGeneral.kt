@@ -21,7 +21,9 @@ abstract class BaseDataStoreGeneral(
     abstract fun loadData(): LiveData<List<Articles>>
     abstract fun loadDataSearchable(keyword: String): LiveData<List<Articles>>
 
-    var dao: ArticleDao = ArticleDatabase.getDatabase(context).articleDao()
+    private var preferences = context.getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
+    private var name = preferences.getString("emailName", "")!!
+    var dao: ArticleDao = ArticleDatabase.getDatabase(context, name).articleDao()
 
     inline fun fetchData(crossinline call: (ApiService) -> Deferred<Response<ApiPost>>): LiveData<List<Articles>> {
         val result = MutableLiveData<List<Articles>>()

@@ -18,9 +18,6 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.example.newsapp.Likes
 import com.example.newsapp.R
 import com.example.newsapp.utils.RequestConstants
 import com.example.newsapp.view.activities.LoginActivity
@@ -37,8 +34,7 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
-        val rootView = inflater.inflate(R.layout.fragment_profile, container, false) as ViewGroup
-        return rootView
+        return inflater.inflate(R.layout.fragment_profile, container, false) as ViewGroup
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,9 +46,6 @@ class ProfileFragment : Fragment() {
 
         changePhoto.setOnClickListener {
             getPermissions()
-        }
-        saved.setOnClickListener{
-            openSaved()
         }
     }
 
@@ -69,9 +62,11 @@ class ProfileFragment : Fragment() {
 
 
     private fun initViews() {
-        name.text =(this.activity as Context).getSharedPreferences("my_preferences", 0).getString("username", "null")
+        var loggedSharedPreferences=context?.getSharedPreferences("my_preferences", 0)
+        name.text =loggedSharedPreferences?.getString("username", "null")
+        email.text=loggedSharedPreferences?.getString("emailName", "null")
         try {
-            preferences = (this.activity as Context).getSharedPreferences("Avatar", 0)
+            preferences = context?.getSharedPreferences("Avatar", 0) as SharedPreferences
             val pathPhotoAvatar = preferences.getString("uri", null)
             avatarIm.setImageURI(Uri.parse(pathPhotoAvatar))
         } catch (e: Exception) {
@@ -214,8 +209,5 @@ class ProfileFragment : Fragment() {
             Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true)
         startActivityForResult(intent, RequestConstants.GALLERY)
-    }
-    private fun openSaved(){
-        Toast.makeText(context, Likes.getList()?.get(0)?.author, Toast.LENGTH_LONG).show()
     }
 }

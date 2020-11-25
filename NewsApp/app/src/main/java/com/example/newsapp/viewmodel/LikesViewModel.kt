@@ -14,9 +14,11 @@ class LikesViewModel(val context: Context) : BaseViewModel(), CoroutineScope {
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
+    private var preferences = context.getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
+    private var name = preferences.getString("emailName", "")!!
 
     init {
-        dao = ArticleDatabase.getDatabase(context = context).likesDao()
+        dao = ArticleDatabase.getDatabase(context = context, name).likesDao()
     }
 
     fun fetchRepoList() {
