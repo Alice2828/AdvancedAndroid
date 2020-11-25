@@ -1,20 +1,17 @@
 package com.example.newsapp.viewmodel
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.newsapp.data.model.Articles
 import com.example.newsapp.data.model.Likes
+import com.example.newsapp.database.ArticleDatabase
 import com.example.newsapp.database.LikesDao
-import com.example.newsapp.database.LikesDatabase
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 import kotlinx.coroutines.*
 import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
-class DetailViewModel(private val context: Context) : ViewModel(), CoroutineScope {
+class DetailViewModel(context: Context) : ViewModel(), CoroutineScope {
     var dao: LikesDao? = null
     val liveData = MutableLiveData<Boolean>()
     private val job = Job()
@@ -22,7 +19,7 @@ class DetailViewModel(private val context: Context) : ViewModel(), CoroutineScop
         get() = Dispatchers.Main + job
 
     init {
-        dao = LikesDatabase.getDatabase(context = context).likesDao()
+        dao = ArticleDatabase.getDatabase(context = context).likesDao()
     }
 
     fun haslike(itemData: Articles) {
@@ -33,8 +30,9 @@ class DetailViewModel(private val context: Context) : ViewModel(), CoroutineScop
                     var isLiked = false
                     if (list != null) {
                         for (like in list) {
-                            if (like.post == itemData)
+                            if (like == itemData) {
                                 isLiked = true
+                            }
                         }
                         isLiked
                     } else false
@@ -51,9 +49,20 @@ class DetailViewModel(private val context: Context) : ViewModel(), CoroutineScop
     fun likeMovie(favourite: Boolean, itemData: Articles) {
         launch {
             if (favourite) {
-                dao?.insert(Likes(itemData.id, itemData))
+                val index= dao?.queryLastInsert()?.plus(1)
+                dao?.insert(Likes(index, itemData.title))
+               // dao?.update( itemData.title)
+//                if (index != null) {
+//                   // dao?.insert(Likes(index))
+//                    dao?.update(index, itemData.id)
+//                }
+//                else
+//                {
+//                  //  dao?.insert(Likes(0))
+//                    dao?.update(0, itemData.id)
+//                }
             } else {
-                dao?.remove(itemData.id)
+                dao?.remove(itemData.title)
             }
         }
     }

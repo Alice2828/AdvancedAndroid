@@ -7,20 +7,17 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.webkit.WebViewClient
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.newsapp.BR
 import com.example.newsapp.R
 import com.example.newsapp.data.model.Articles
-import com.example.newsapp.data.model.Likes
 import com.example.newsapp.databinding.FragmentDetailBinding
 import com.example.newsapp.utils.Utils
 import com.example.newsapp.viewmodel.DetailViewModel
-import com.example.newsapp.viewmodel.ViewModelProviderFactory
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_detail.view.*
@@ -32,34 +29,51 @@ class DetailActivity : AppCompatActivity(),
     private lateinit var viewDataBinding: FragmentDetailBinding
     private lateinit var itemDetail: Articles
     private var isHideToolBarView = false
-    lateinit var detailViewModel: DetailViewModel
+    private val detailViewModel: DetailViewModel by viewModel()
     private val utils = Utils()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewDataBinding =
             DataBindingUtil.setContentView(this, R.layout.fragment_detail)
+        setBars()
+        initViews()
+        setObservers()
+    }
 
-        val viewModelProviderFactory = ViewModelProviderFactory(context = this)
-        detailViewModel =
-            ViewModelProvider(this, viewModelProviderFactory).get(DetailViewModel::class.java)
 
-        val view = viewDataBinding.root
+    private fun setBars() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         appbar.addOnOffsetChangedListener(this)
+    }
+
+    private fun initViews() {
+        val view = viewDataBinding.root
+        val imageView = view.backdrop
+
         itemDetail = intent.getSerializableExtra("itemData") as Articles
         viewDataBinding.setVariable(BR.itemDetail, itemDetail)
-
         initWebView(itemDetail.url)
-        val imageView = view.backdrop
         Glide.with(this)
             .load(itemDetail.urlToImage)
             .into(imageView)
         time.text = utils.DateToTimeFormat(itemDetail.publishedAt)
+    }
 
+    private fun initWebView(url: String) {
+        webView.settings.loadsImagesAutomatically = true
+        webView.settings.javaScriptEnabled = true
+        webView.settings.domStorageEnabled = true
+        webView.settings.supportZoom()
+        webView.settings.builtInZoomControls = true
+        webView.settings.displayZoomControls = true
+        webView.scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
+        webView.webViewClient = WebViewClient()
+        webView.loadUrl(url)
+    }
+
+    private fun setObservers() {
         detailViewModel.liveData.observe(this, { result ->
             if (result) {
                 toolbar.menu.findItem(R.id.like).icon =
@@ -97,56 +111,49 @@ class DetailActivity : AppCompatActivity(),
         }
     }
 
-    fun initWebView(url: String) {
-        webView.settings.loadsImagesAutomatically = true
-        webView.settings.javaScriptEnabled = true
-        webView.settings.domStorageEnabled = true
-        webView.settings.supportZoom()
-        webView.settings.builtInZoomControls = true
-        webView.settings.displayZoomControls = true
-        webView.scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
-        webView.webViewClient = WebViewClient()
-        webView.loadUrl(url)
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.detail_menu, menu)
         detailViewModel.haslike(itemDetail)
-//        if (detailViewModel.haslike()) {
-//            menu?.getItem(1)?.icon = getDrawable(R.drawable.ic_favorite_liked)
-//        } else
-//            menu?.getItem(1)?.icon = getDrawable(R.drawable.ic_favorite_border)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.share) {
-            try {
-                val i = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(
-                        Intent.EXTRA_TEXT,
-                        itemDetail.title + "\n" + itemDetail.url + "\n" + "Share from the NewsApp" + "\n"
-                    )
-                    type = "text/plain"
-
-                }
-                startActivity(Intent.createChooser(i, "Share with:"))
-            } catch (e: Exception) {
-                Toast.makeText(this, "Hmm...Sorry, /nCan not be shared", Toast.LENGTH_LONG).show()
-            }
+            share()
         }
         if (id == R.id.like) {
-            val drawable: Drawable = item.icon.current
-            if (drawable.constantState?.equals(getDrawable(R.drawable.ic_favorite_border)?.constantState) == true) {
-                item.icon = getDrawable(R.drawable.ic_favorite_liked)
-                detailViewModel.likeMovie(true, itemDetail)
-            } else {
-                item.icon = getDrawable(R.drawable.ic_favorite_border)
-                detailViewModel.likeMovie(false, itemDetail)
-            }
+            like(item)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun share() {
+        try {
+            val i = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    itemDetail.title + "\n" + itemDetail.url + "\n" + "Share from the NewsApp" + "\n"
+                )
+                type = "text/plain"
+
+            }
+            startActivity(Intent.createChooser(i, "Share with:"))
+        } catch (e: Exception) {
+            Toast.makeText(this, "Hmm...Sorry, /nCan not be shared", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun like(item: MenuItem) {
+        val drawable: Drawable = item.icon.current
+        if (drawable.constantState?.equals(getDrawable(R.drawable.ic_favorite_border)?.constantState) == true) {
+            item.icon = getDrawable(R.drawable.ic_favorite_liked)
+            detailViewModel.likeMovie(true, itemDetail)
+        } else {
+            item.icon = getDrawable(R.drawable.ic_favorite_border)
+            detailViewModel.likeMovie(false, itemDetail)
+        }
     }
 }

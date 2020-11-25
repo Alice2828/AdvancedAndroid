@@ -1,21 +1,10 @@
 package com.example.newsapp.view.activities
 
-import android.app.SearchManager
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.viewpager.widget.PagerAdapter
-import com.example.newsapp.Likes
 import com.example.newsapp.R
-import com.example.newsapp.adapter.SlidePagerAdapter
-import com.example.newsapp.database.LikesDao
-import com.example.newsapp.database.LikesDatabase
 import com.example.newsapp.view.fragments.GeneralListFragment
-import com.example.newsapp.view.LockableViewPager
 import com.example.newsapp.view.fragments.LikesFragment
 import com.example.newsapp.view.fragments.ProfileFragment
 import com.example.newsapp.view.fragments.RepoListFragment
@@ -23,41 +12,54 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
-    private lateinit var pager: LockableViewPager
     private var list: MutableList<Fragment> = ArrayList()
-    private lateinit var pagerAdapter: PagerAdapter
+    private var repoListFragment = RepoListFragment()
+    private var generalListFragment = GeneralListFragment()
+    private var likesFragment = LikesFragment()
+    private var profileFragment = ProfileFragment()
+    private lateinit var active: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Likes.getInstance()
-        list.add(RepoListFragment())
-        list.add(GeneralListFragment())
-        list.add(LikesFragment())
-        list.add(ProfileFragment())
-        pager = findViewById(R.id.pager)
-        pager.setSwipable(false)
+        //create all fragments
+        var fm = supportFragmentManager
+        fm.beginTransaction().add(R.id.main_container, profileFragment, "4").hide(profileFragment)
+            .commit()
+        fm.beginTransaction().add(R.id.main_container, likesFragment, "3").hide(
+            likesFragment
+        ).commit()
+        fm.beginTransaction().add(R.id.main_container, generalListFragment, "2")
+            .hide(generalListFragment).commit()
+        fm.beginTransaction().add(R.id.main_container, repoListFragment, "1").commit()
+        //choose active
+        active = repoListFragment
+        //bottomNav
         bottomNavigationView = findViewById(R.id.bottom_navigation)
-        pagerAdapter = SlidePagerAdapter(supportFragmentManager, list)
-        pager.adapter = pagerAdapter
         bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.top -> {
-                    pager.setCurrentItem(0, false)
+                    // pager.setCurrentItem(0, false)
+                    fm.beginTransaction().hide(active).show(repoListFragment).commit()
+                    active = repoListFragment
                 }
                 R.id.all -> {
-                    pager.setCurrentItem(1, false)
+                    // pager.setCurrentItem(1, false)
+                    fm.beginTransaction().hide(active).show(generalListFragment).commit()
+                    active = generalListFragment
                 }
                 R.id.likes -> {
-                    pager.setCurrentItem(2, false)
+                    // pager.setCurrentItem(2, false)
+                    fm.beginTransaction().hide(active).show(likesFragment).commit()
+                    active = likesFragment
                 }
                 R.id.profile -> {
-                    pager.setCurrentItem(3, false)
+                    // pager.setCurrentItem(3, false)
+                    fm.beginTransaction().hide(active).show(profileFragment).commit()
+                    active = profileFragment
                 }
             }
             false
         }
-
-
     }
 }

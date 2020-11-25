@@ -46,8 +46,11 @@ class GeneralListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         swipe_refresh_view.setOnRefreshListener {
+            swipe_refresh_view.isRefreshing = true
             errorLayout.visibility = View.GONE
-            setUpViewModel()
+            viewDataBinding.viewmodel?.fetchRepoList(keyword)
+            swipe_refresh_view.isRefreshing = false
+
         }
         setUpViewModel()
     }
@@ -58,11 +61,10 @@ class GeneralListFragment : Fragment() {
         setupAdapter()
         setObservers()
         swipe_refresh_view.isRefreshing = false
-
     }
 
     private fun setObservers() {
-        viewDataBinding.viewmodel?.fetchRepoList(keyword)?.observe(viewLifecycleOwner, Observer {
+        viewDataBinding.viewmodel?.fetchRepoList(keyword)?.observe(viewLifecycleOwner, {
             adapter.updateRepoList(it)
         })
 
@@ -83,10 +85,15 @@ class GeneralListFragment : Fragment() {
                 )
             )
             repo_list_rv.adapter = adapter
+            checkConnection()
+        }
+    }
 
-            if (!hasConnection(context!!)) {
-                showErrorMessage(R.drawable.no_result, "No Result", "Please, swipe to refresh")
-            }
+    private fun checkConnection() {
+        if (!hasConnection(context!!)) {
+            showErrorMessage(R.drawable.no_result, "No Result", "Please, swipe to refresh")
+        } else {
+            errorLayout.visibility = View.GONE
         }
     }
 
@@ -105,9 +112,9 @@ class GeneralListFragment : Fragment() {
         val searchMenuItem = menu.findItem(R.id.action_search)
         val searchView = searchMenuItem?.actionView as SearchView
         searchView.queryHint = "Search"
+
         searchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
-
             override fun onQueryTextChange(qString: String): Boolean {
                 if (qString.length > 2) {
                     keyword = qString
@@ -137,10 +144,5 @@ class GeneralListFragment : Fragment() {
         wifiInfo = cm.activeNetworkInfo
         return wifiInfo != null && wifiInfo.isConnected
     }
-//
-//    internal interface SearchtemClickListener {
-//        fun itemSearch(keyword: String)
-//    }
-
 }
 

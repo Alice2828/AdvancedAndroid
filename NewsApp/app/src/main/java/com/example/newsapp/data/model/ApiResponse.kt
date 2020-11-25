@@ -1,9 +1,6 @@
 package com.example.newsapp.data.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -18,13 +15,13 @@ data class ApiPost(
 
 @Entity(tableName = "articles_table")
 data class Articles(
-    @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     var id: Long = 0,
     @ColumnInfo(name = "author", defaultValue = "default")
     @SerializedName("author")
     val author: String,
     @ColumnInfo(name = "title", defaultValue = "default")
+    @PrimaryKey
     @SerializedName("title")
     val title: String,
     @ColumnInfo(name = "description", defaultValue = "default")
@@ -41,17 +38,24 @@ data class Articles(
     val publishedAt: String,
     @ColumnInfo(name = "content", defaultValue = "default")
     @SerializedName("content")
-    val content: String,
-    @SerializedName("like")
-    var like: Boolean? = false
+    val content: String
 ) : Serializable
 
-@Entity(tableName = "likes_table")
+
+@Entity(
+    tableName = "likes_table", foreignKeys = arrayOf(
+        ForeignKey(
+            entity = Articles::class,
+            parentColumns = arrayOf("title"),
+            childColumns = arrayOf("articleTitle")
+        )
+    )
+)
 data class Likes(
     @PrimaryKey(autoGenerate = true)
     @SerializedName("likesId")
-    var likesId: Long = 0,
-    @Embedded
-    @SerializedName("post")
-    var post: Articles
+    var likesId: Long? = 0,
+    @ColumnInfo(index = true)
+    @SerializedName("articleTitle")
+    var articleTitle: String? = null
 ) : Serializable

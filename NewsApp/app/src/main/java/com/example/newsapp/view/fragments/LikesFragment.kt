@@ -1,26 +1,16 @@
 package com.example.newsapp.view.fragments
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-
-import com.example.newsapp.R
 import com.example.newsapp.adapter.RepoListAdapter
-import com.example.newsapp.database.LikesDao
-import com.example.newsapp.database.LikesDatabase
 import com.example.newsapp.databinding.FragmentLikesBinding
-import com.example.newsapp.databinding.FragmentRepoListBinding
 import com.example.newsapp.viewmodel.LikesViewModel
-import com.example.newsapp.viewmodel.RepoListViewModel
-import com.example.newsapp.viewmodel.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.error.*
 import kotlinx.android.synthetic.main.fragment_repo_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,8 +22,7 @@ class LikesFragment : Fragment() {
 
     private lateinit var viewDataBinding: FragmentLikesBinding
     private lateinit var adapter: RepoListAdapter
-    private lateinit var likesViewModel: LikesViewModel
-
+    private val likesViewModel: LikesViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,9 +33,6 @@ class LikesFragment : Fragment() {
         viewDataBinding = FragmentLikesBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
-        val viewModelProviderFactory = ViewModelProviderFactory(context = this.activity as Context)
-        likesViewModel =
-            ViewModelProvider(this, viewModelProviderFactory).get(LikesViewModel::class.java)
         viewDataBinding.viewmodel = likesViewModel
         return viewDataBinding.root
 
@@ -56,18 +42,22 @@ class LikesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         swipe_refresh_view.setOnRefreshListener {
+            swipe_refresh_view.isRefreshing = true
             errorLayout.visibility = View.GONE
             setUpViewModel()
+            swipe_refresh_view.isRefreshing = false
+
+
         }
         setUpViewModel()
+        viewDataBinding.viewmodel?.liveData?.observe(viewLifecycleOwner, { result ->
+            adapter.updateRepoList(result)
+        })
     }
 
     private fun setUpViewModel() {
         swipe_refresh_view.isRefreshing = true
         viewDataBinding.viewmodel?.fetchRepoList()
-        viewDataBinding.viewmodel?.liveData?.observe(viewLifecycleOwner, { result ->
-            adapter.updateRepoList(result)
-        })
         setupAdapter()
         swipe_refresh_view.isRefreshing = false
 

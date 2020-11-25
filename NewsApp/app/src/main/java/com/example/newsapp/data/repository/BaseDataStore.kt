@@ -1,18 +1,21 @@
 package com.example.newsapp.data.repository
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.newsapp.data.api.ApiService
 import com.example.newsapp.data.model.ApiPost
 import com.example.newsapp.data.model.Articles
 import com.example.newsapp.database.ArticleDao
+import com.example.newsapp.database.ArticleDatabase
 import retrofit2.HttpException
 import retrofit2.Response
 import kotlinx.coroutines.*
 import timber.log.Timber
 
-abstract class BaseDataStore(@PublishedApi internal val service: ApiService, var dao: ArticleDao) {
+abstract class BaseDataStore(@PublishedApi internal val service: ApiService, var context: Context) {
     abstract fun loadData(): LiveData<List<Articles>>
+    var dao: ArticleDao = ArticleDatabase.getDatabase(context).articleDao()
 
     inline fun fetchData(crossinline call: (ApiService) -> Deferred<Response<ApiPost>>): LiveData<List<Articles>> {
         val result = MutableLiveData<List<Articles>>()

@@ -13,6 +13,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         sharedPreferences = getSharedPreferences("my_preferences", MODE_PRIVATE)
         if (sharedPreferences.getString("username", "")?.isNotEmpty()!!) {

@@ -1,17 +1,13 @@
 package com.example.newsapp.view.fragments
 
-import android.app.SearchManager
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.*
-import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.newsapp.R
 import com.example.newsapp.adapter.RepoListAdapter
 import com.example.newsapp.databinding.FragmentRepoListBinding
@@ -34,7 +30,6 @@ class RepoListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         viewDataBinding = FragmentRepoListBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
@@ -48,22 +43,24 @@ class RepoListFragment : Fragment() {
 
         swipe_refresh_view.setOnRefreshListener {
             errorLayout.visibility = View.GONE
-            setUpViewModel()
+            swipe_refresh_view.isRefreshing = true
+            viewDataBinding.viewmodel?.fetchRepoList()
+            swipe_refresh_view.isRefreshing = false
         }
         setUpViewModel()
+        setObservers()
     }
 
     private fun setUpViewModel() {
         swipe_refresh_view.isRefreshing = true
         viewDataBinding.viewmodel?.fetchRepoList()
         setupAdapter()
-        setObservers()
         swipe_refresh_view.isRefreshing = false
 
     }
 
     private fun setObservers() {
-        viewDataBinding.viewmodel?.fetchRepoList()?.observe(viewLifecycleOwner, Observer {
+        viewDataBinding.viewmodel?.fetchRepoList()?.observe(viewLifecycleOwner, {
             adapter.updateRepoList(it)
         })
 
@@ -71,7 +68,6 @@ class RepoListFragment : Fragment() {
 
     private fun setupAdapter() {
         val viewModel = viewDataBinding.viewmodel
-        //val dao = viewModel?.dao
         if (viewModel != null) {
             adapter = RepoListAdapter()
             val layoutManager = LinearLayoutManager(activity)
@@ -86,15 +82,19 @@ class RepoListFragment : Fragment() {
             )
             repo_list_rv.adapter = adapter
 
-            if (!hasConnection(context!!)) {
-                showErrorMessage(R.drawable.no_result, "No Result", "Please, swipe to refresh")
-            } else {
-                errorLayout.visibility = View.GONE
-            }
+            checkConnection()
         }
     }
 
-    fun showErrorMessage(imageView: Int, title: String, message: String) {
+    private fun checkConnection() {
+        if (!hasConnection(context!!)) {
+            showErrorMessage(R.drawable.no_result, "No Result", "Please, swipe to refresh")
+        } else {
+            errorLayout.visibility = View.GONE
+        }
+    }
+
+    private fun showErrorMessage(imageView: Int, title: String, message: String) {
 
         if (errorLayout.visibility == View.GONE) {
             errorLayout.visibility = View.VISIBLE
@@ -103,21 +103,23 @@ class RepoListFragment : Fragment() {
         errorTitle.text = title
         errorMessage.text = message
     }
+
+    private fun hasConnection(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        var wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+        if (wifiInfo != null && wifiInfo.isConnected) {
+            return true
+        }
+        wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+        if (wifiInfo != null && wifiInfo.isConnected) {
+            return true
+        }
+        wifiInfo = cm.activeNetworkInfo
+        return wifiInfo != null && wifiInfo.isConnected
+    }
 }
 
 
-fun hasConnection(context: Context): Boolean {
-    val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    var wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-    if (wifiInfo != null && wifiInfo.isConnected) {
-        return true
-    }
-    wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
-    if (wifiInfo != null && wifiInfo.isConnected) {
-        return true
-    }
-    wifiInfo = cm.activeNetworkInfo
-    return wifiInfo != null && wifiInfo.isConnected
-}
+
 
 
