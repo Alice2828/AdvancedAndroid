@@ -52,8 +52,6 @@ class ProfileFragment : Fragment() {
     private fun logout() {
         preferences = context?.getSharedPreferences("my_preferences", 0) as SharedPreferences
         preferences.edit().clear().commit()
-        preferences = context?.getSharedPreferences("Avatar", 0) as SharedPreferences
-        preferences.edit().clear().commit()
         val intent = Intent(activity, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
@@ -62,11 +60,12 @@ class ProfileFragment : Fragment() {
 
 
     private fun initViews() {
-        var loggedSharedPreferences=context?.getSharedPreferences("my_preferences", 0)
-        name.text =loggedSharedPreferences?.getString("username", "null")
-        email.text=loggedSharedPreferences?.getString("emailName", "null")
+        var loggedSharedPreferences = context?.getSharedPreferences("my_preferences", 0)
+        name.text = loggedSharedPreferences?.getString("username", "null")
+        email.text = loggedSharedPreferences?.getString("emailName", "null")
         try {
-            preferences = context?.getSharedPreferences("Avatar", 0) as SharedPreferences
+            var currentUser = (activity as Context).getSharedPreferences("my_preferences", 0)?.getString("emailName", "")
+            preferences = context?.getSharedPreferences(currentUser, 0) as SharedPreferences
             val pathPhotoAvatar = preferences.getString("uri", null)
             avatarIm.setImageURI(Uri.parse(pathPhotoAvatar))
         } catch (e: Exception) {
@@ -107,7 +106,7 @@ class ProfileFragment : Fragment() {
         adapter.add("Gallery")
         AlertDialog.Builder(activity as Context)
             .setTitle("Change avatar")
-            .setAdapter(adapter) { dialog, which ->
+            .setAdapter(adapter) { _, which ->
                 if (which == 0) {
                     openCamera()
                 } else {
@@ -152,7 +151,9 @@ class ProfileFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        preferences = (this.activity as Context).getSharedPreferences("Avatar", 0)
+        var currentUser = (activity as Context).getSharedPreferences("my_preferences", 0)?.getString("emailName", "")
+        preferences = (this.activity as Context).getSharedPreferences(currentUser, 0)
+
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
             preferences.edit().clear().commit()
             preferences.edit().putString("uri", photoPath).commit()
@@ -162,7 +163,7 @@ class ProfileFragment : Fragment() {
 
         } else if (requestCode == RequestConstants.GALLERY) {
             if (data?.data == null) {
-                preferences = (this.activity as Context).getSharedPreferences("Avatar", 0)
+                preferences = (this.activity as Context).getSharedPreferences(currentUser, 0)
                 val pathPhotoAvatar = preferences.getString("uri", null)
                 avatarIm.setImageURI(Uri.parse(pathPhotoAvatar))
                 Toast.makeText(
