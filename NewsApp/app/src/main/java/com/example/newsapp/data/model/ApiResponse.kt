@@ -57,5 +57,7 @@ data class Likes(
     var likesId: Long? = 0,
     @ColumnInfo(index = true)
     @SerializedName("articleTitle")
-    var articleTitle: String? = null
+    var articleTitle: String? = null,
+    @SerializedName("emailName")
+    var emailName: String?
 ) : Serializable

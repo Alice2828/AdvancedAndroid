@@ -16,10 +16,8 @@ import timber.log.Timber
 
 abstract class BaseDataStore(@PublishedApi internal val service: ApiService, var context: Context) {
     abstract fun loadData(): LiveData<List<Articles>>
-    private var preferences = context.getSharedPreferences("my_preferences", MODE_PRIVATE)
-    private var name = preferences.getString("emailName", "")!!
 
-    var dao: ArticleDao = ArticleDatabase.getDatabase(context, name).articleDao()
+    var dao: ArticleDao = ArticleDatabase.getDatabase(context).articleDao()
 
     inline fun fetchData(crossinline call: (ApiService) -> Deferred<Response<ApiPost>>): LiveData<List<Articles>> {
         val result = MutableLiveData<List<Articles>>()

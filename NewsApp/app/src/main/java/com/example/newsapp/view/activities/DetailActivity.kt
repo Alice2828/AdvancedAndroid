@@ -114,7 +114,7 @@ class DetailActivity : AppCompatActivity(),
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.detail_menu, menu)
-        detailViewModel.haslike(itemDetail)
+        detailViewModel.hasLike(itemDetail)
         return super.onCreateOptionsMenu(menu)
     }
 
