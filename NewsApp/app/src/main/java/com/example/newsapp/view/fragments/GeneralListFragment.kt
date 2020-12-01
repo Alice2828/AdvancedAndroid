@@ -6,22 +6,17 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
 import com.example.newsapp.adapter.GeneralListAdapter
 import com.example.newsapp.databinding.FragmentGeneralListBinding
-import com.example.newsapp.view.activities.MainActivity
 import com.example.newsapp.viewmodel.GeneralListViewModel
 import kotlinx.android.synthetic.main.error.*
 import kotlinx.android.synthetic.main.fragment_repo_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-/**
- * A simple [Fragment] subclass.
- */
 class GeneralListFragment : Fragment() {
     private lateinit var viewDataBinding: FragmentGeneralListBinding
     private lateinit var adapter: GeneralListAdapter

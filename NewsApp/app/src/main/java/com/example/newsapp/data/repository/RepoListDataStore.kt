@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import com.example.newsapp.data.api.ApiService
 import com.example.newsapp.data.model.Articles
-import com.example.newsapp.database.ArticleDao
 import com.example.newsapp.domain.RepoList.RepoListRepository
 import com.example.newsapp.utils.Constants.Companion.Api_key
 

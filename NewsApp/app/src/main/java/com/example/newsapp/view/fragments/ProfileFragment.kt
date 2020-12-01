@@ -1,5 +1,6 @@
 package com.example.newsapp.view.fragments
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
@@ -47,6 +48,7 @@ class ProfileFragment : Fragment() {
         changePhoto.setOnClickListener {
             getPermissions()
         }
+
     }
 
     private fun logout() {
@@ -59,17 +61,34 @@ class ProfileFragment : Fragment() {
     }
 
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun initViews() {
-        var loggedSharedPreferences = context?.getSharedPreferences("my_preferences", 0)
+        val loggedSharedPreferences = context?.getSharedPreferences("my_preferences", 0)
         name.text = loggedSharedPreferences?.getString("username", "null")
         email.text = loggedSharedPreferences?.getString("emailName", "null")
         try {
-            var currentUser = (activity as Context).getSharedPreferences("my_preferences", 0)?.getString("emailName", "")
+            val currentUser = (activity as Context).getSharedPreferences("my_preferences", 0)
+                ?.getString("emailName", "")
             preferences = context?.getSharedPreferences(currentUser, 0) as SharedPreferences
-            val pathPhotoAvatar = preferences.getString("uri", null)
-            avatarIm.setImageURI(Uri.parse(pathPhotoAvatar))
-        } catch (e: Exception) {
+            try {
+                val pathPhotoAvatar = preferences.getString("uri", null)
+                avatarIm.setImageURI(Uri.parse(pathPhotoAvatar))
 
+            } catch (e: Exception) {
+                avatarIm.setImageDrawable(
+                    resources.getDrawable(
+                        R.drawable.ic_account_circle_black_24dp,
+                        null
+                    )
+                )
+            }
+        } catch (e: Exception) {
+            avatarIm.setImageDrawable(
+                resources.getDrawable(
+                    R.drawable.ic_account_circle_black_24dp,
+                    null
+                )
+            )
         }
     }
 
@@ -104,13 +123,16 @@ class ProfileFragment : Fragment() {
             ArrayAdapter(activity as Context, android.R.layout.simple_list_item_1)
         adapter.add("Camera")
         adapter.add("Gallery")
+        adapter.add("Delete")
         AlertDialog.Builder(activity as Context)
             .setTitle("Change avatar")
             .setAdapter(adapter) { _, which ->
                 if (which == 0) {
                     openCamera()
-                } else {
+                } else if (which == 1) {
                     openGallery()
+                } else {
+                    deletePhoto()
                 }
             }
             .create()
@@ -151,7 +173,8 @@ class ProfileFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        var currentUser = (activity as Context).getSharedPreferences("my_preferences", 0)?.getString("emailName", "")
+        val currentUser = (activity as Context).getSharedPreferences("my_preferences", 0)
+            ?.getString("emailName", "")
         preferences = (this.activity as Context).getSharedPreferences(currentUser, 0)
 
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
@@ -210,5 +233,35 @@ class ProfileFragment : Fragment() {
             Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true)
         startActivityForResult(intent, RequestConstants.GALLERY)
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun deletePhoto() {
+        if (photoPath != null) {
+            val fDelete = File(photoPath)
+            if (fDelete.exists()) {
+                if (fDelete.delete()) {
+
+                    avatarIm.setImageDrawable(
+                        resources.getDrawable(
+                            R.drawable.ic_account_circle_black_24dp,
+                            null
+                        )
+                    )
+                    val currentUser =
+                        (activity as Context).getSharedPreferences("my_preferences", 0)
+                            ?.getString("emailName", "")
+                    (this.activity as Context).getSharedPreferences(currentUser, 0).edit()
+                        .remove("uri")
+                    Toast.makeText(context, "Photo was deleted", Toast.LENGTH_LONG).show()
+
+                } else {
+                    Toast.makeText(context, "Something is wrong", Toast.LENGTH_LONG).show()
+
+                }
+            }
+        } else {
+            Toast.makeText(context, "No photo", Toast.LENGTH_LONG).show()
+        }
     }
 }

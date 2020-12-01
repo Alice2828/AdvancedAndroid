@@ -3,7 +3,6 @@ package com.example.newsapp.data.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.newsapp.R
 import com.example.newsapp.data.api.ApiService
 import com.example.newsapp.data.model.ApiPost
 import com.example.newsapp.data.model.Articles

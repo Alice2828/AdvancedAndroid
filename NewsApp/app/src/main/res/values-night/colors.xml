@@ -11,8 +11,8 @@
     <color name="colorSecondary">#81d4fa</color>
     <color name="colorSecondaryDark">#C35CEF</color>
 
-    <color name="mainText">#0d47a1</color>
-    <color name="textAlt">#b3e5fc</color>
-    <color name="mainBackground">#f9f9fa</color>
+    <color name="mainText">#b3e5fc</color>
+    <color name="textAlt">#0d47a1</color>
+    <color name="mainBackground">#0d47a1</color>
 
 </resources>

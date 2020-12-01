@@ -1,6 +1,5 @@
 package com.example.newsapp.database
 
-
 import android.content.Context
 import androidx.room.*
 import com.example.newsapp.data.model.Articles
@@ -30,7 +29,7 @@ interface ArticleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(post: Articles?)
 
-    @Query("SELECT*FROM articles_table")
+    @Query("SELECT*FROM articles_table ORDER BY id DESC")
     fun getAll(): List<Articles>
 }
 

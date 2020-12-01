@@ -4,15 +4,13 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
 
     <!-- Цвет фона, предпочтительно как в главной теме -->
-    <item android:drawable="@android:color/holo_red_light"/>
+    <item android:drawable="@color/colorPrimary"/>
 
     <!-- Лого приложения - 144dp версия иконки приложения -->
     <item>
-
         <bitmap
-            android:src="@drawable/icon_news"
+            android:src="@drawable/ic_splash"
             android:gravity="center"/>
-
     </item>
 
 </layer-list>

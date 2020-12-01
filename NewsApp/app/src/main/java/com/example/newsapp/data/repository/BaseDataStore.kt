@@ -1,7 +1,6 @@
 package com.example.newsapp.data.repository
 
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.newsapp.data.api.ApiService

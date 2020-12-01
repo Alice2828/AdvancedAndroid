@@ -7,18 +7,14 @@
     android:orientation="vertical"
     tools:context=".view.activities.MainActivity">
 
-
-
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
             <FrameLayout
                 android:id="@+id/main_container"
@@ -26,7 +22,6 @@
                 android:layout_height="match_parent"
                 android:layout_above="@+id/bottom_navigation"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigation"
@@ -36,12 +31,10 @@
                 android:layout_gravity="bottom"
                 android:foreground="?attr/selectableItemBackground"
                 app:itemBackground="@color/colorPrimary"
-                app:itemIconTint="#ffffff"
-                app:itemTextColor="#ffffff"
+                app:itemIconTint="@color/colorTextSubtitle"
+                app:itemTextColor="@color/colorTextSubtitle"
                 app:labelVisibilityMode="labeled"
                 app:menu="@menu/menu_navigation" />
         </RelativeLayout>
-        <!--    <include layout="@layout/activity_main"/>-->
     </FrameLayout>
-
 </LinearLayout>

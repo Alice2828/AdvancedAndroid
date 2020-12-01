@@ -8,12 +8,11 @@
     android:orientation="vertical"
     tools:context=".view.activities.LoginActivity">
 
-
     <View
         android:id="@+id/bgHeader"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimaryDark"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv"
@@ -40,7 +39,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="ЛОГИН"
-                android:textColor="#000000"
+                android:textColor="@color/colorTextSubtitle"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -88,7 +87,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp"
                 android:text="Забыли пароль?"
-                android:textColor="#000000"
+                android:textColor="@color/colorTextSubtitle"
                 android:textStyle="bold" />
 
             <Button
@@ -125,7 +124,7 @@
                     android:background="@null"
                     android:text="Регистрация"
                     android:onClick="onRegister"
-                    android:textColor="#000000"
+                    android:textColor="@color/colorTextSubtitle"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>

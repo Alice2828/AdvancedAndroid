@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,9 +18,6 @@ import kotlinx.android.synthetic.main.fragment_repo_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-/**
- * A simple [Fragment] subclass.
- */
 class RepoListFragment : Fragment() {
     private lateinit var viewDataBinding: FragmentRepoListBinding
     private lateinit var adapter: RepoListAdapter
@@ -63,6 +61,7 @@ class RepoListFragment : Fragment() {
         viewDataBinding.viewmodel?.fetchRepoList()?.observe(viewLifecycleOwner, {
             adapter.updateRepoList(it)
         })
+//        viewDataBinding.viewmodel?.fetchRepoList()?.observe(this, PagedList(adapter::submitList))
 
     }
 

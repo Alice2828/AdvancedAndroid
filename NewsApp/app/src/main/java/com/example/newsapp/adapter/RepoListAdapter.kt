@@ -2,19 +2,12 @@ package com.example.newsapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.newsapp.adapter.viewholder.RepoListViewHolder
-import com.example.newsapp.data.model.ApiPost
 import com.example.newsapp.data.model.Articles
-import com.example.newsapp.database.ArticleDao
 import com.example.newsapp.databinding.ViewRepoListItemBinding
-import com.example.newsapp.viewmodel.RepoListViewModel
 
-class RepoListAdapter(
-    //private val dao: ArticleDao
-) :
+class RepoListAdapter :
     RecyclerView.Adapter<RepoListViewHolder>() {
     var repoList: List<Articles> = emptyList()
 

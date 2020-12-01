@@ -15,9 +15,6 @@ import kotlinx.android.synthetic.main.error.*
 import kotlinx.android.synthetic.main.fragment_repo_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-/**
- * A simple [Fragment] subclass.
- */
 class LikesFragment : Fragment() {
 
     private lateinit var viewDataBinding: FragmentLikesBinding
