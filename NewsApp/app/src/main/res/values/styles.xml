@@ -1,15 +1,21 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="toolbarStyle">@style/CustomToolBarStyle</item>
+        <item name="mainText">#0d47a1</item>
+        <item name="textAlt">#b3e5fc</item>
+        <item name="mainBackground">#b3e5fc</item>
+        <item name="mainBackgroundSecond">#81d4fa</item>
+        <item name="android:windowContentTransitions">true</item>
+
     </style>
 
     <style name="CustomToolBarStyle" parent="@style/Widget.AppCompat.Toolbar">
-        <item name="titleTextColor">@color/colorAccent</item>
+        <item name="titleTextColor">#0d47a1</item>
     </style>
 
     <style name="AppTheme.FullScreen">
@@ -25,7 +31,7 @@
     </style>
 
     <style name="MyAppBarLayoutTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="colorControlHighlight">#0d47a1</item>
     </style>
 
     <style name="AppTheme.Launcher">
@@ -36,12 +42,13 @@
 
     <style name="TextBlackTitle">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">#0d47a1</item>
         <item name="android:fontFamily">@font/raleway_bold</item>
     </style>
 
     <style name="TextDescription">
         <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#0d47a1</item>
         <item name="android:fontFamily">@font/raleway_medium</item>
     </style>
 
@@ -53,7 +60,7 @@
 
     <style name="TextName">
         <item name="android:textSize">32sp</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">#b3e5fc</item>
         <item name="android:fontFamily">@font/raleway_light</item>
     </style>
 </resources>

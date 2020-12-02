@@ -11,12 +11,11 @@
 
     </data>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
@@ -29,9 +28,9 @@
             app:cardElevation="@dimen/cardview_default_elevation">
 
             <RelativeLayout
-                android:background="?android:attr/selectableItemBackground"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/colorBackground">
 
                 <ImageView
                     android:id="@+id/item_avatar"
@@ -53,18 +52,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_alignStart="@+id/title"
-                    android:layout_alignLeft="@+id/title"
                     android:layout_alignTop="@+id/layoutDate"
                     android:layout_alignEnd="@+id/layoutDate"
-                    android:layout_alignRight="@+id/layoutDate"
-                    android:layout_marginRight="160dp"
+                    android:layout_marginEnd="160dp"
                     android:drawablePadding="10dp"
                     android:ellipsize="end"
                     android:gravity="bottom"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:text="@{itemData.author}"
-                    android:textColor="@android:color/white"
+                    android:textColor="?attr/mainText"
                     android:textSize="@dimen/_20sp" />
 
                 <FrameLayout
@@ -72,9 +69,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/item_avatar"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="-50dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
                     android:background="@drawable/round_white"
                     android:padding="5dp">
 
@@ -90,8 +87,8 @@
                         text="01 January 1990"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="27dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginStart="27dp"
+                        android:layout_marginEnd="10dp"
                         android:textColor="#606060" />
                 </FrameLayout>
 
@@ -108,6 +105,7 @@
                     android:textColor="@color/colorTextTitle"
                     android:textSize="17sp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/desc"
                     android:layout_width="wrap_content"
@@ -118,9 +116,10 @@
                     android:layout_marginRight="16dp"
                     android:fontFamily="sans-serif-light"
                     android:text="@{itemData.title}"
-                    android:textColor="@color/colorTextTitle"
+                    android:textColor="?attr/mainText"
                     android:textSize="17sp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/time"
                     android:layout_width="wrap_content"
@@ -129,12 +128,14 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="16dp"
-                    android:fontFamily="sans-serif-light"
-                    android:text="@{itemData.publishedAt}"
-                    android:maxLines="1"
+                    android:layout_marginBottom="10dp"
                     android:drawablePadding="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="?attr/mainText"
+                    android:maxLines="1"
                     android:singleLine="true"
-                    android:ellipsize="end" />
+                    android:text="@{itemData.publishedAt}" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </FrameLayout>

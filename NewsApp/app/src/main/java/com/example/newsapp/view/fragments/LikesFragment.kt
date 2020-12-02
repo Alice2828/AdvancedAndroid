@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.adapter.RepoListAdapter
 import com.example.newsapp.databinding.FragmentLikesBinding
+import com.example.newsapp.view.activities.MainActivity
 import com.example.newsapp.viewmodel.LikesViewModel
 import kotlinx.android.synthetic.main.error.*
 import kotlinx.android.synthetic.main.fragment_repo_list.*
@@ -64,7 +65,7 @@ class LikesFragment : Fragment() {
     private fun setupAdapter() {
         val viewModel = viewDataBinding.viewmodel
         if (viewModel != null) {
-            adapter = RepoListAdapter()
+            adapter = RepoListAdapter(activity as MainActivity)
             val layoutManager = LinearLayoutManager(activity)
             repo_list_rv.layoutManager = layoutManager
             repo_list_rv.itemAnimator = DefaultItemAnimator()

@@ -130,12 +130,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorBackground"
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="0dp"
+                    android:background="@color/colorBackground"
                     app:cardElevation="@dimen/cardview_default_elevation"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -153,7 +155,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
                             android:text="@{itemDetail.title}"
-                            android:textColor="@color/colorTextTitle"
+                            android:textColor="?attr/mainText"
                             android:textSize="19sp"
                             android:textStyle="bold" />
 

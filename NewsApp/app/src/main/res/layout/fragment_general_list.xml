@@ -42,25 +42,9 @@
                         android:layout_marginRight="16dp"
                         android:fontFamily="sans-serif-light"
                         android:text="Search for news"
-                        android:textColor="@color/colorTextTitle"
+                        android:textColor="?attr/mainText"
                         android:textSize="17sp"
                         android:textStyle="bold" />
-
-                    <ProgressBar
-                        style="?android:attr/progressBarStyleLarge"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:visibility="@{safeUnbox(viewmodel.dataLoading) ? View.VISIBLE : View.GONE}" />
-
-                    <TextView
-                        android:id="@+id/empty_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="No repo to display"
-                        android:textSize="18sp"
-                        android:visibility="@{safeUnbox(viewmodel.empty) ? View.VISIBLE : View.GONE}" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/repo_list_rv"

@@ -7,12 +7,10 @@
     <color name="colorBackground">#f9f9fa</color>
     <color name="colorTextSubtitle">#01579b</color>
     <color name="colorTextTitle">#0d47a1</color>
+    <color name="colorTextDate">#757575</color>
 
     <color name="colorSecondary">#81d4fa</color>
     <color name="colorSecondaryDark">#C35CEF</color>
-
-    <color name="mainText">#0d47a1</color>
-    <color name="textAlt">#b3e5fc</color>
-    <color name="mainBackground">#f9f9fa</color>
+<!--    <color name="colorPrimaryReg">#f9f9fa</color>-->
 
 </resources>

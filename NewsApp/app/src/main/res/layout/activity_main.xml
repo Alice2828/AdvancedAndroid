@@ -30,9 +30,10 @@
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="bottom"
                 android:foreground="?attr/selectableItemBackground"
+                android:outlineSpotShadowColor="?attr/textAlt"
                 app:itemBackground="@color/colorPrimary"
-                app:itemIconTint="@color/colorTextSubtitle"
-                app:itemTextColor="@color/colorTextSubtitle"
+                app:itemIconTint="?attr/mainText"
+                app:itemTextColor="?attr/mainText"
                 app:labelVisibilityMode="labeled"
                 app:menu="@menu/menu_navigation" />
         </RelativeLayout>

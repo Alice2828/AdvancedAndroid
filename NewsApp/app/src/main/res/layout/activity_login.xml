@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@color/colorBackground"
     android:orientation="vertical"
     tools:context=".view.activities.LoginActivity">
 
@@ -12,7 +12,7 @@
         android:id="@+id/bgHeader"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@color/colorPrimaryDark"/>
+        android:background="@color/colorPrimaryDark" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv"
@@ -29,7 +29,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffffff"
+            android:background="@color/colorBackground"
             android:orientation="vertical"
             android:paddingBottom="10dp">
 
@@ -39,7 +39,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="ЛОГИН"
-                android:textColor="@color/colorTextSubtitle"
+                android:textColor="?attr/mainText"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -53,16 +53,6 @@
                 android:hint="Email"
                 android:inputType="textEmailAddress" />
 
-            <!--            <EditText-->
-            <!--                android:id="@+id/password"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:hint="Пароль"-->
-            <!--                android:layout_marginTop="20dp"-->
-
-            <!--                android:layout_marginLeft="10dp"-->
-            <!--                android:layout_marginRight="10dp"-->
-            <!--                android:inputType="textPassword" />-->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,6 +66,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="10dp"
                     android:hint="Пароль"
+
                     android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -87,7 +78,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp"
                 android:text="Забыли пароль?"
-                android:textColor="@color/colorTextSubtitle"
+                android:textColor="?attr/mainText"
                 android:textStyle="bold" />
 
             <Button
@@ -96,9 +87,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
-                android:onClick="onClick"
                 android:layout_marginRight="10dp"
                 android:background="@color/colorPrimaryDark"
+                android:onClick="onClick"
                 android:text="Логин"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold" />
@@ -122,9 +113,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:background="@null"
-                    android:text="Регистрация"
                     android:onClick="onRegister"
-                    android:textColor="@color/colorTextSubtitle"
+                    android:text="Регистрация"
+                    android:textColor="?attr/mainText"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>

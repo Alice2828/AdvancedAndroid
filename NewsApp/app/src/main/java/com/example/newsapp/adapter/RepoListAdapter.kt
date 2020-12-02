@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.adapter.viewholder.RepoListViewHolder
 import com.example.newsapp.data.model.Articles
 import com.example.newsapp.databinding.ViewRepoListItemBinding
+import com.example.newsapp.view.activities.MainActivity
 
-class RepoListAdapter :
+class RepoListAdapter(val activity: MainActivity) :
     RecyclerView.Adapter<RepoListViewHolder>() {
     var repoList: List<Articles> = emptyList()
 
@@ -15,7 +16,7 @@ class RepoListAdapter :
         val inflater = LayoutInflater.from(parent.context)
         val dataBinding = ViewRepoListItemBinding.inflate(inflater, parent, false)
         val context = parent.context
-        return RepoListViewHolder(dataBinding, context)
+        return RepoListViewHolder(activity, dataBinding, context)
     }
 
     override fun getItemCount() = repoList.size

@@ -29,7 +29,7 @@
             app:cardElevation="@dimen/cardview_default_elevation">
 
             <RelativeLayout
-                android:background="?android:attr/selectableItemBackground"
+                android:background="@color/colorBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -64,7 +64,7 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:text="@{itemData.author}"
-                    android:textColor="@android:color/white"
+                    android:textColor="?attr/mainText"
                     android:textSize="@dimen/_20sp" />
 
                 <FrameLayout
@@ -105,7 +105,7 @@
                     android:layout_marginRight="16dp"
                     android:fontFamily="sans-serif-light"
                     android:text="@{itemData.title}"
-                    android:textColor="@color/colorTextTitle"
+                    android:textColor="?attr/mainText"
                     android:textSize="17sp"
                     android:textStyle="bold" />
                 <TextView
@@ -118,36 +118,25 @@
                     android:layout_marginRight="16dp"
                     android:fontFamily="sans-serif-light"
                     android:text="@{itemData.title}"
-                    android:textColor="@color/colorTextTitle"
+                    android:textColor="?attr/mainText"
                     android:textSize="17sp"
                     android:textStyle="bold" />
-<!--                <TextView-->
-<!--                    android:id="@+id/source"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="20dp"-->
-<!--                    android:layout_below="@id/desc"-->
-<!--                    android:layout_marginLeft="16dp"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:layout_marginRight="16dp"-->
-<!--                    android:fontFamily="sans-serif-light"-->
-<!--                    android:text="@{itemData.source}"-->
-<!--                    android:maxLines="1"-->
-<!--                    android:drawablePadding="10dp"-->
-<!--                    android:singleLine="true"-->
-<!--                    android:ellipsize="end" />-->
                 <TextView
                     android:id="@+id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_below="@id/desc"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_toRightOf="@+id/source"
+                    android:layout_marginRight="16dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@{itemData.publishedAt}"
                     android:maxLines="1"
                     android:drawablePadding="10dp"
+                    android:textColor="?attr/mainText"
                     android:singleLine="true"
-                    android:ellipsize="end"
-                    android:text="@{itemData.publishedAt}" />
+                    android:ellipsize="end" />
 
 
             </RelativeLayout>

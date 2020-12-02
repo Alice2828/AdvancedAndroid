@@ -1,7 +1,9 @@
 package com.example.newsapp.adapter.viewholder
 
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -10,10 +12,12 @@ import com.example.newsapp.BR
 import com.example.newsapp.data.model.Articles
 import com.example.newsapp.databinding.ViewRepoListItemBinding
 import com.example.newsapp.view.activities.DetailActivity
+import com.example.newsapp.view.activities.MainActivity
 import kotlinx.android.synthetic.main.view_repo_list_item.view.*
 
 
 class RepoListViewHolder constructor(
+    val activity: MainActivity,
     val dataBinding: ViewRepoListItemBinding,
     val context: Context
 ) : RecyclerView.ViewHolder(dataBinding.root) {
@@ -35,7 +39,9 @@ class RepoListViewHolder constructor(
             val bundle = Bundle()
             bundle.putSerializable("itemData", itemData)
             intent.putExtras(bundle)
-            context.startActivity(intent)
+            val options =
+                ActivityOptions.makeSceneTransitionAnimation(activity)
+            context.startActivity(intent, options.toBundle())
         }
     }
 }

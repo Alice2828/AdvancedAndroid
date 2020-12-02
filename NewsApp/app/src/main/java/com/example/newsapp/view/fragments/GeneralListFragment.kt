@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
 import com.example.newsapp.adapter.GeneralListAdapter
 import com.example.newsapp.databinding.FragmentGeneralListBinding
+import com.example.newsapp.view.activities.MainActivity
 import com.example.newsapp.viewmodel.GeneralListViewModel
 import kotlinx.android.synthetic.main.error.*
 import kotlinx.android.synthetic.main.fragment_repo_list.*
@@ -68,7 +69,7 @@ class GeneralListFragment : Fragment() {
     private fun setupAdapter() {
         val viewModel = viewDataBinding.viewmodel
         if (viewModel != null) {
-            adapter = GeneralListAdapter()
+            adapter = GeneralListAdapter(activity as MainActivity)
             val layoutManager = LinearLayoutManager(activity)
             repo_list_rv.layoutManager = layoutManager
             repo_list_rv.itemAnimator = DefaultItemAnimator()
