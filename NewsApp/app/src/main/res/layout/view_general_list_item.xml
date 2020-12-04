@@ -64,7 +64,7 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:text="@{itemData.author}"
-                    android:textColor="?attr/mainText"
+                    android:textColor="#b3e5fc"
                     android:textSize="@dimen/_20sp" />
 
                 <FrameLayout

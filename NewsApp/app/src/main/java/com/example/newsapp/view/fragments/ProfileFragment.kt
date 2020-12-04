@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.example.newsapp.R
+import com.example.newsapp.utils.CommonUtils
 import com.example.newsapp.utils.RequestConstants
 import com.example.newsapp.view.activities.LoginActivity
 import com.example.newsapp.view.activities.MainActivity
@@ -34,10 +35,6 @@ class ProfileFragment : Fragment() {
     private lateinit var preferences: SharedPreferences
     private var photoPath: String? = null
     private val REQUEST_TAKE_PHOTO = 1
-    private lateinit var nightModeShPref: SharedPreferences
-    private var listener: ChangeNightMode? = null
-    private var isNightMode: Boolean = false
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -47,24 +44,20 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        listener = object : ChangeNightMode {
-            override fun change(currentMode: Boolean) {
-                (activity as MainActivity).change(currentMode)
-            }
-        }
         initViews()
-         checkMode()
+        checkMode()
         setListeners()
     }
 
     private fun checkMode() {
-        nightModeShPref = context?.getSharedPreferences("NightMode", 0) as SharedPreferences
-        isNightMode = nightModeShPref.getBoolean("NightMode", false)
-        nightMode.isChecked = isNightMode
+        nightMode.isChecked = CommonUtils.isNightModeEnabled(context!!)
+        if (CommonUtils.isNightModeEnabled(context!!))
+            nightMode.text = "DISABLE DARK MODE "
+        else
+            nightMode.text = " ENABLE DARK MODE "
     }
 
     private fun setListeners() {
-
         logout.setOnClickListener {
             logout()
         }
@@ -72,30 +65,19 @@ class ProfileFragment : Fragment() {
         changePhoto.setOnClickListener {
             getPermissions()
         }
-        nightMode.setOnCheckedChangeListener { buttonView, isChecked ->
-            when (isChecked) {
-                true -> {
-                    val nightModeShPref = context?.getSharedPreferences("NightMode", 0) as SharedPreferences
-                    nightModeShPref.edit().putBoolean("NightMode", isChecked).commit()
-                    (listener as ChangeNightMode).change(isChecked)
+        nightMode.setOnClickListener {
+            if (CommonUtils.isNightModeEnabled(context!!)) {
+                CommonUtils.setIsNightModeEnabled(context!!, false)
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                activity?.finish()
 
-                   // AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                   // (activity as MainActivity).recreate()
+            } else if (!CommonUtils.isNightModeEnabled(context!!)) {
+                CommonUtils.setIsNightModeEnabled(context!!, true)
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                activity?.finish()
 
-                }
-                false -> {
-                    val nightModeShPref = context?.getSharedPreferences("NightMode", 0) as SharedPreferences
-                    nightModeShPref.edit().putBoolean("NightMode", isChecked).commit()
-                    (listener as ChangeNightMode).change(isChecked)
-                    // AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
-                }
             }
         }
-//        nightMode.setOnClickListener {
-//            (listener as ChangeNightMode).change(true)
-//            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//        }
     }
 
     private fun logout() {
@@ -106,7 +88,6 @@ class ProfileFragment : Fragment() {
         startActivity(intent)
         activity?.finish()
     }
-
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun initViews() {
@@ -119,6 +100,14 @@ class ProfileFragment : Fragment() {
             preferences = context?.getSharedPreferences(currentUser, 0) as SharedPreferences
             try {
                 val pathPhotoAvatar = preferences.getString("uri", null)
+                if(pathPhotoAvatar=null)
+                    avatarIm.setImageDrawable(
+                        resources.getDrawable(
+                            R.drawable.ic_account_circle_black_24dp,
+                            null
+                        )
+                    )
+                else
                 avatarIm.setImageURI(Uri.parse(pathPhotoAvatar))
 
             } catch (e: Exception) {
@@ -299,7 +288,7 @@ class ProfileFragment : Fragment() {
                         (activity as Context).getSharedPreferences("my_preferences", 0)
                             ?.getString("emailName", "")
                     (this.activity as Context).getSharedPreferences(currentUser, 0).edit()
-                        .remove("uri")
+                        .remove("uri").commit()
                     Toast.makeText(context, "Photo was deleted", Toast.LENGTH_LONG).show()
 
                 } else {
@@ -310,9 +299,5 @@ class ProfileFragment : Fragment() {
         } else {
             Toast.makeText(context, "No photo", Toast.LENGTH_LONG).show()
         }
-    }
-
-    interface ChangeNightMode {
-        fun change(currentMode: Boolean)
     }
 }

@@ -1,9 +1,7 @@
 package com.example.newsapp.adapter.viewholder
 
-import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -39,9 +37,7 @@ class RepoListViewHolder constructor(
             val bundle = Bundle()
             bundle.putSerializable("itemData", itemData)
             intent.putExtras(bundle)
-            val options =
-                ActivityOptions.makeSceneTransitionAnimation(activity)
-            context.startActivity(intent, options.toBundle())
+            context.startActivity(intent)
         }
     }
 }

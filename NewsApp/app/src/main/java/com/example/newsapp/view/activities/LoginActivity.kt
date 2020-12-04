@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.newsapp.R
+import com.example.newsapp.utils.CommonUtils
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -16,17 +17,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
-
-        val nightModeShPref = getSharedPreferences("NightMode", 0) as SharedPreferences
-        val isNightMode = nightModeShPref.getBoolean("NightMode", false)
-
-        if(delegate.applyDayNight()) {
-            if (isNightMode) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-        }
 
         sharedPreferences = getSharedPreferences("my_preferences", MODE_PRIVATE)
         if (sharedPreferences.getString("username", "")?.isNotEmpty()!!) {
