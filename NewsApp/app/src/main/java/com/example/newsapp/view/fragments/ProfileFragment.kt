@@ -100,7 +100,7 @@ class ProfileFragment : Fragment() {
             preferences = context?.getSharedPreferences(currentUser, 0) as SharedPreferences
             try {
                 val pathPhotoAvatar = preferences.getString("uri", null)
-                if(pathPhotoAvatar=null)
+                if(pathPhotoAvatar==null)
                     avatarIm.setImageDrawable(
                         resources.getDrawable(
                             R.drawable.ic_account_circle_black_24dp,
