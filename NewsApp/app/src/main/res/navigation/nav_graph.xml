@@ -7,25 +7,59 @@
     <fragment
         android:id="@+id/sourcesFragment"
         android:name="com.example.newsapp.view.fragments.SourcesListFragment"
-        android:label="ToDoListFragment">
+        android:label="SourcesFragment">
         <action
-            android:id="@+id/action_todo_to_addToDo"
-            app:destination="@id/addListFragment"
+            android:id="@+id/action_first_to_second"
+            app:destination="@id/secondFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_first_to_third"
+            app:destination="@id/thirdFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_out_right"
             app:popExitAnim="@android:anim/slide_in_left" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/secondFragment"
+        android:name="com.example.newsapp.view.fragments.SecondFragment"
+        android:label="SecondFragment">
+
+        <action
+            android:id="@+id/action_second_to_first"
+            app:destination="@id/sourcesFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_second_to_third"
+            app:destination="@id/thirdFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/slide_in_left" />
 
     </fragment>
     <fragment
-        android:id="@+id/addListFragment"
-        android:name="com.example.newsapp.view.fragments.SecondFragment"
-        android:label="AddListFragment">
+        android:id="@+id/thirdFragment"
+        android:name="com.example.newsapp.view.fragments.ThirdFragment"
+        android:label="ThirdFragment">
 
         <action
-            android:id="@+id/action_to_source"
+            android:id="@+id/action_third_to_first"
             app:destination="@id/sourcesFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_third_to_second"
+            app:destination="@id/secondFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_out_right"
