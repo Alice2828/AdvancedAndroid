@@ -1,19 +1,19 @@
 package com.example.newsapp.view.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.transition.Slide
-import android.view.Gravity
-import android.view.animation.DecelerateInterpolator
-import androidx.appcompat.app.AppCompatDelegate
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
 import com.example.newsapp.R
-import com.example.newsapp.utils.CommonUtils
 import com.example.newsapp.view.fragments.GeneralListFragment
 import com.example.newsapp.view.fragments.LikesFragment
 import com.example.newsapp.view.fragments.ProfileFragment
 import com.example.newsapp.view.fragments.RepoListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -22,32 +22,29 @@ class MainActivity : AppCompatActivity() {
     private var likesFragment = LikesFragment()
     private var profileFragment = ProfileFragment()
     private lateinit var active: Fragment
+    private lateinit var toggle: ActionBarDrawerToggle
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //check for nightMode
-//        if (CommonUtils.isNightModeEnabled(this)) {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//        } else {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//        }
-//        if (!CommonUtils.isToogleEnabled(this)) {
-//            if (CommonUtils.isDarkMode(this)) {
-//                CommonUtils.setIsNightModeEnabled(this, true);
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//            } else {
-//                CommonUtils.setIsNightModeEnabled(this, false);
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//            }
-//        } else {
-//            if (CommonUtils.isNightModeEnabled(this)) {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//            } else {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//            }
-//        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //drawer setting
+        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        navView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.miItem1 -> {
+                    val intent = Intent(this, SourcesActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.miItem2 -> Toast.makeText(applicationContext, "khjk", Toast.LENGTH_LONG).show()
+                R.id.miItem3 -> Toast.makeText(applicationContext, "khjk", Toast.LENGTH_LONG).show()
+            }
+            true
+        }
         //create all fragments
         val fm = supportFragmentManager
         fm.beginTransaction().add(R.id.main_container, profileFragment, "4")
@@ -88,5 +85,13 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

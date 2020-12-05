@@ -61,3 +61,4 @@ data class Likes(
     @SerializedName("emailName")
     var emailName: String?
 ) : Serializable
+

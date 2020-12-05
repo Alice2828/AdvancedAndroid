@@ -85,7 +85,7 @@ class RepoListFragment : Fragment() {
     }
 
     private fun checkConnection() {
-        if (!hasConnection(context!!)) {
+        if (!hasConnection(requireContext())) {
             showErrorMessage(R.drawable.no_result, "No Result", "Please, swipe to refresh")
         } else {
             errorLayout.visibility = View.GONE

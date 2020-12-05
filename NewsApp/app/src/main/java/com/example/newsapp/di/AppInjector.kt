@@ -6,16 +6,14 @@ import com.example.newsapp.data.repository.GeneralListDataStore
 import com.example.newsapp.data.repository.RepoListDataStore
 import com.example.newsapp.domain.GeneralList.GetGeneralListUseCase
 import com.example.newsapp.domain.RepoList.GetRepoListUseCase
-import com.example.newsapp.viewmodel.DetailViewModel
-import com.example.newsapp.viewmodel.GeneralListViewModel
-import com.example.newsapp.viewmodel.LikesViewModel
-import com.example.newsapp.viewmodel.RepoListViewModel
+import com.example.newsapp.viewmodel.*
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import org.koin.androidx.viewmodel.dsl.viewModel
 
 
 val viewModelModule = module {
+    viewModel { SourcesListViewModel(get()) }
     viewModel { LikesViewModel(get()) }
     viewModel { DetailViewModel(get()) }
     viewModel { RepoListViewModel(get()) }

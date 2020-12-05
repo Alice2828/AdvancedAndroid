@@ -20,4 +20,11 @@ interface ApiService {
         @Query("sortBy") sortBy: String,
         @Query("apiKey") apiKey: String
     ): Deferred<Response<ApiPost>>
+
+    @GET("everything")
+    fun getSources(
+        @Query("q") q: String,
+        @Query("page") page: Int,
+        @Query("apiKey") apiKey: String
+    ): Deferred<Response<ApiPost>>
 }

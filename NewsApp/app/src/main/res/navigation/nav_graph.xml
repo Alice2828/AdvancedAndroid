@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/sourcesFragment">
+
+    <fragment
+        android:id="@+id/sourcesFragment"
+        android:name="com.example.newsapp.view.fragments.SourcesListFragment"
+        android:label="ToDoListFragment">
+        <action
+            android:id="@+id/action_todo_to_addToDo"
+            app:destination="@id/addListFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/slide_in_left" />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/addListFragment"
+        android:name="com.example.newsapp.view.fragments.SecondFragment"
+        android:label="AddListFragment">
+
+        <action
+            android:id="@+id/action_to_source"
+            app:destination="@id/sourcesFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/slide_in_left" />
+
+    </fragment>
+
+</navigation>

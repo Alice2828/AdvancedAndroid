@@ -25,7 +25,6 @@ import com.example.newsapp.R
 import com.example.newsapp.utils.CommonUtils
 import com.example.newsapp.utils.RequestConstants
 import com.example.newsapp.view.activities.LoginActivity
-import com.example.newsapp.view.activities.MainActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import java.io.File
 import java.io.IOException
@@ -50,8 +49,8 @@ class ProfileFragment : Fragment() {
     }
 
     private fun checkMode() {
-        nightMode.isChecked = CommonUtils.isNightModeEnabled(context!!)
-        if (CommonUtils.isNightModeEnabled(context!!))
+        nightMode.isChecked = CommonUtils.isNightModeEnabled(requireContext())
+        if (CommonUtils.isNightModeEnabled(requireContext()))
             nightMode.text = "DISABLE DARK MODE "
         else
             nightMode.text = " ENABLE DARK MODE "
