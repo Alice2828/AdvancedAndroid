@@ -16,14 +16,15 @@ interface ApiService {
 
     @GET("everything")
     fun getGeneral(
-        @Query("q") q: String,
+        @Query("qInTitle") q: String,
         @Query("sortBy") sortBy: String,
         @Query("apiKey") apiKey: String
     ): Deferred<Response<ApiPost>>
 
     @GET("everything")
     fun getSources(
-        @Query("q") q: String,
+        @Query("qInTitle") q: String,
+        //@Query("pageSize") pagSize: Int,
         @Query("page") page: Int,
         @Query("apiKey") apiKey: String
     ): Deferred<Response<ApiPost>>

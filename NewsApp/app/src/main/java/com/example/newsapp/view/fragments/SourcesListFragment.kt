@@ -8,10 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.*
 import com.example.newsapp.R
 import com.example.newsapp.adapter.SourceListAdapter
 import com.example.newsapp.databinding.FragmentSourcesListBinding
@@ -44,7 +41,7 @@ class SourcesListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         swipe_refresh_view.setOnRefreshListener {
-           setUpViewModel()
+            setUpViewModel()
         }
         setUpViewModel()
     }
@@ -60,9 +57,7 @@ class SourcesListFragment : Fragment() {
         val viewModel = viewDataBinding.viewmodel
         if (viewModel != null) {
             adapter = SourceListAdapter(activity as SourcesActivity)
-         //   val layoutManager = GridLayoutManager(activity, 2)
-            val layoutManager = LinearLayoutManager(activity)
-
+            val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             repo_list_rv.layoutManager = layoutManager
             repo_list_rv.itemAnimator = DefaultItemAnimator()
             repo_list_rv.isNestedScrollingEnabled
@@ -72,7 +67,7 @@ class SourcesListFragment : Fragment() {
                     layoutManager.orientation
                 )
             )
-            viewDataBinding.viewmodel?.postsLiveData?.observe(viewLifecycleOwner, Observer {
+            viewDataBinding.viewmodel?.postsLiveData?.observe(viewLifecycleOwner, {
                 adapter.submitList(it)
             })
             repo_list_rv.adapter = adapter

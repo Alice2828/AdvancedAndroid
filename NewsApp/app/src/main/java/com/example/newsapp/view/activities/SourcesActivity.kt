@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.example.newsapp.R
@@ -18,7 +17,6 @@ enum class Active {
     FIRST, SECOND, THIRD
 }
 
-
 class SourcesActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var def: ColorStateList
     var active = Active.FIRST
@@ -30,7 +28,6 @@ class SourcesActivity : AppCompatActivity(), View.OnClickListener {
         item2.setOnClickListener(this)
         item3.setOnClickListener(this)
         def = item2.textColors
-
     }
 
     override fun onClick(v: View?) {
@@ -85,7 +82,6 @@ class SourcesActivity : AppCompatActivity(), View.OnClickListener {
                 }
         }
     }
-
 
     override fun onSupportNavigateUp(): Boolean =
         findNavController(R.id.nav_host_fragment).navigateUp()

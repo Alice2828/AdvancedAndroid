@@ -60,7 +60,6 @@
 
             <include layout="@layout/tabs" />
 
-
         </LinearLayout>
     </FrameLayout>
 </layout>

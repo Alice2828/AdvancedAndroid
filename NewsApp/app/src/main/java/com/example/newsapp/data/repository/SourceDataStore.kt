@@ -18,8 +18,7 @@ class SourceDataStore(@PublishedApi internal val service: ApiService) :
         callback: LoadInitialCallback<Int, Articles>
     ) {
         CoroutineScope(Dispatchers.IO).launch {
-            val request = service.getSources("coronavirus",FIRST_PAGE, Api_key)
-
+            val request = service.getSources("coronavirus", FIRST_PAGE, Api_key)
             try {
                 withContext(Dispatchers.Main) {
                     val response = request.await()
@@ -42,7 +41,7 @@ class SourceDataStore(@PublishedApi internal val service: ApiService) :
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Articles>) {
         CoroutineScope(Dispatchers.IO).launch {
-            val request = service.getSources("coronavirus",FIRST_PAGE, Api_key)
+            val request = service.getSources("coronavirus", FIRST_PAGE, Api_key)
             try {
                 withContext(Dispatchers.Main) {
                     val response = request.await()
@@ -66,7 +65,7 @@ class SourceDataStore(@PublishedApi internal val service: ApiService) :
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Articles>) {
 
         CoroutineScope(Dispatchers.IO).launch {
-            val request = service.getSources("coronavirus",FIRST_PAGE, Api_key)
+            val request = service.getSources("coronavirus", FIRST_PAGE, Api_key)
             try {
                 withContext(Dispatchers.Main) {
                     val response = request.await()
@@ -90,7 +89,7 @@ class SourceDataStore(@PublishedApi internal val service: ApiService) :
     }
 
     companion object {
-        const val PAGE_SIZE = 6
+        const val PAGE_SIZE = 15
         const val FIRST_PAGE = 1
     }
 }

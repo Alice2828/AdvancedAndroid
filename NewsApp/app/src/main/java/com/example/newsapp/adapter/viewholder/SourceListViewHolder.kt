@@ -21,7 +21,7 @@ class SourceListViewHolder constructor(
     val context: Context,
 ) : RecyclerView.ViewHolder(dataBinding.root) {
 
-    val avatarImage = itemView.avatarIm
+    val avatarImage = itemView.imagePost
 
     fun setup(itemData: Articles) {
         dataBinding.setVariable(BR.itemData, itemData)

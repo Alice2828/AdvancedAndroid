@@ -20,12 +20,13 @@
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
+            android:background="@drawable/rounded"
             android:foreground="?attr/selectableItemBackground"
-            app:itemBackground="@color/colorPrimary"
+            android:padding="6dp"
             app:itemIconTint="?attr/mainText"
             app:itemTextColor="?attr/mainText"
             app:labelVisibilityMode="labeled"

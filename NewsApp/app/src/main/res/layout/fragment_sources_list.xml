@@ -37,26 +37,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tppHeadLines"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="16dp"
-                        android:fontFamily="sans-serif-light"
-                        android:text="Top Headlines"
-                        android:textColor="?attr/mainText"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
-
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/repo_list_rv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:visibility="@{safeUnbox(viewmodel.dataLoading) ? View.GONE : View.VISIBLE}" />
-
-
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
