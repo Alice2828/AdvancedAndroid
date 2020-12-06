@@ -12,14 +12,16 @@
         <item name="mainBackgroundSecond">#01579b</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
-<!--        <item name="android:windowEnterTransition">@transition/explode</item>-->
-<!--        <item name="android:windowExitTransition">@transition/explode</item>-->
         <!-- specify shared element transitions -->
         <item name="android:windowSharedElementEnterTransition">
             @transition/change_image_transform</item>
         <item name="android:windowSharedElementExitTransition">
             @transition/change_image_transform</item>
 
+    </style>
+    <style name="ToolbarThemeWhite" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/colorAccent</item>
     </style>
     <!-- This will set the fade in animation on your change theme activity by default -->
     <style name="WindowAnimationTransition">
@@ -28,6 +30,7 @@
     </style>
     <style name="CustomToolBarStyle" parent="@style/Widget.AppCompat.Toolbar">
         <item name="titleTextColor">#b3e5fc</item>
+        <item name="android:textColorPrimary">@color/colorAccent</item>
     </style>
 
 

@@ -1,11 +1,14 @@
 package com.example.newsapp.view.activities
 
 import android.content.Intent
+import android.graphics.PorterDuff
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.newsapp.R
 import com.example.newsapp.view.fragments.GeneralListFragment
@@ -32,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //drawer setting
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+        toggle.drawerArrowDrawable.color = ContextCompat.getColor(this, R.color.colorAccent)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -40,10 +44,25 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.miItem1 -> {
                     val intent = Intent(this, SourcesActivity::class.java)
+                    val bundle = Bundle()
+                    bundle.putSerializable("active", Active.FIRST)
+                    intent.putExtras(bundle)
                     startActivity(intent)
                 }
-                R.id.miItem2 -> Toast.makeText(applicationContext, "khjk", Toast.LENGTH_LONG).show()
-                R.id.miItem3 -> Toast.makeText(applicationContext, "khjk", Toast.LENGTH_LONG).show()
+                R.id.miItem2 -> {
+                    val intent = Intent(this, SourcesActivity::class.java)
+                    val bundle = Bundle()
+                    bundle.putSerializable("active", Active.SECOND)
+                    intent.putExtras(bundle)
+                    startActivity(intent)
+                }
+                R.id.miItem3 -> {
+                    val intent = Intent(this, SourcesActivity::class.java)
+                    val bundle = Bundle()
+                    bundle.putSerializable("active", Active.THIRD)
+                    intent.putExtras(bundle)
+                    startActivity(intent)
+                }
             }
             true
         }

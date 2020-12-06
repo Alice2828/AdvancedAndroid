@@ -1,6 +1,7 @@
 package com.example.newsapp.view.activities
 
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
@@ -10,6 +11,7 @@ import android.webkit.WebViewClient
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.newsapp.BR
@@ -45,6 +47,9 @@ class DetailActivity : AppCompatActivity(),
     private fun setBars() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val upArrow =  ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material);
+        upArrow?.setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+        supportActionBar?.setHomeAsUpIndicator(upArrow)
         appbar.addOnOffsetChangedListener(this)
     }
 

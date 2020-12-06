@@ -60,10 +60,13 @@ class ProfileFragment : Fragment() {
         logout.setOnClickListener {
             logout()
         }
-
+        avatarIm.setOnClickListener {
+            getPermissions()
+        }
         changePhoto.setOnClickListener {
             getPermissions()
         }
+
         nightMode.setOnClickListener {
             if (CommonUtils.isNightModeEnabled(requireContext())) {
                 CommonUtils.setIsNightModeEnabled(requireContext(), false)
@@ -74,7 +77,6 @@ class ProfileFragment : Fragment() {
                 CommonUtils.setIsNightModeEnabled(requireContext(), true)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 activity?.finish()
-
             }
         }
     }
@@ -99,7 +101,7 @@ class ProfileFragment : Fragment() {
             preferences = context?.getSharedPreferences(currentUser, 0) as SharedPreferences
             try {
                 val pathPhotoAvatar = preferences.getString("uri", null)
-                if(pathPhotoAvatar==null)
+                if (pathPhotoAvatar == null)
                     avatarIm.setImageDrawable(
                         resources.getDrawable(
                             R.drawable.ic_account_circle_black_24dp,
@@ -107,7 +109,7 @@ class ProfileFragment : Fragment() {
                         )
                     )
                 else
-                avatarIm.setImageURI(Uri.parse(pathPhotoAvatar))
+                    avatarIm.setImageURI(Uri.parse(pathPhotoAvatar))
 
             } catch (e: Exception) {
                 avatarIm.setImageDrawable(

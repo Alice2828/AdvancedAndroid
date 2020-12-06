@@ -1,8 +1,11 @@
 package com.example.newsapp.data.repository
 
+import android.content.Context
 import androidx.paging.PageKeyedDataSource
 import com.example.newsapp.data.api.ApiService
 import com.example.newsapp.data.model.Articles
+import com.example.newsapp.database.ArticleDao
+import com.example.newsapp.database.ArticleDatabase
 import com.example.newsapp.utils.Constants.Companion.Api_key
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -10,9 +13,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-class SourceDataStore(@PublishedApi internal val service: ApiService) :
+class SourceDataStore(@PublishedApi internal val service: ApiService, var context: Context) :
     PageKeyedDataSource<Int, Articles>() {
-
+    var dao: ArticleDao = ArticleDatabase.getDatabase(context).articleDao()
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Articles>
@@ -26,6 +29,7 @@ class SourceDataStore(@PublishedApi internal val service: ApiService) :
                         response.isSuccessful -> {
                             val listing = response.body()?.articles
                             if (listing != null) {
+                                dao.insertAll(listing)
                                 callback.onResult(listing, null, FIRST_PAGE + 1)
                             }
                         }
@@ -50,6 +54,7 @@ class SourceDataStore(@PublishedApi internal val service: ApiService) :
                             val listing = response.body()?.articles
                             val key = params.key + 1
                             if (listing != null) {
+                                dao.insertAll(listing)
                                 callback.onResult(listing, key)
                             }
                         }
@@ -74,6 +79,7 @@ class SourceDataStore(@PublishedApi internal val service: ApiService) :
                             val listing = response.body()?.articles
                             val key = if (params.key > 1) params.key - 1 else 0
                             if (listing != null) {
+                                dao.insertAll(listing)
                                 callback.onResult(listing, key)
                             }
                         }

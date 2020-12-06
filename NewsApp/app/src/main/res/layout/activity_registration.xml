@@ -88,7 +88,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/colorSecondary"
                 android:text="РЕГИСТРАЦИЯ"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold" />

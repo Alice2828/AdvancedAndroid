@@ -1,5 +1,6 @@
 package com.example.newsapp.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -9,13 +10,13 @@ import com.example.newsapp.data.repository.SourceDataStore
 import com.example.newsapp.data.repository.SourceDataSourceFactory
 
 
-class SourcesListViewModel(service: ApiService) : BaseViewModel() {
+class SourcesListViewModel(service: ApiService, context: Context) : BaseViewModel() {
 
     var postsLiveData: LiveData<PagedList<Articles>>
     val liveDataSource: LiveData<SourceDataStore>
 
     init {
-        val itemDataSourceFactory = SourceDataSourceFactory(service)
+        val itemDataSourceFactory = SourceDataSourceFactory(service, context)
 
         liveDataSource = itemDataSourceFactory.userLiveDataSource
 

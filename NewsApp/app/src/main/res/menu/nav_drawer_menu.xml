@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/miItem1"
-        android:title="Item1" />
+        android:title="Coronavirus News" />
     <item
         android:id="@+id/miItem2"
-        android:title="Item2" />
+        android:title="Coronavirus Statistics" />
     <item
         android:id="@+id/miItem3"
-        android:title="Item3" />
+        android:title="Coronavirus Map" />
 </menu>
