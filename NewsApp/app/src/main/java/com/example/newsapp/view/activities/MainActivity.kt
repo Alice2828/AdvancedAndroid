@@ -13,6 +13,8 @@ import com.example.newsapp.view.fragments.LikesFragment
 import com.example.newsapp.view.fragments.ProfileFragment
 import com.example.newsapp.view.fragments.RepoListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.shape.CornerFamily
+import com.google.android.material.shape.MaterialShapeDrawable
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

@@ -65,13 +65,13 @@ class ProfileFragment : Fragment() {
             getPermissions()
         }
         nightMode.setOnClickListener {
-            if (CommonUtils.isNightModeEnabled(context!!)) {
-                CommonUtils.setIsNightModeEnabled(context!!, false)
+            if (CommonUtils.isNightModeEnabled(requireContext())) {
+                CommonUtils.setIsNightModeEnabled(requireContext(), false)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 activity?.finish()
 
-            } else if (!CommonUtils.isNightModeEnabled(context!!)) {
-                CommonUtils.setIsNightModeEnabled(context!!, true)
+            } else if (!CommonUtils.isNightModeEnabled(requireContext())) {
+                CommonUtils.setIsNightModeEnabled(requireContext(), true)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 activity?.finish()
 
