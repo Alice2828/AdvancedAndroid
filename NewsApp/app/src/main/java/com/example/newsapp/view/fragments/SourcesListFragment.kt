@@ -57,17 +57,12 @@ class SourcesListFragment : Fragment() {
         val viewModel = viewDataBinding.viewmodel
         if (viewModel != null) {
             adapter = SourceListAdapter(activity as SourcesActivity)
-            val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            val layoutManager = GridLayoutManager(activity,2)
+
             repo_list_rv.layoutManager = layoutManager
             repo_list_rv.itemAnimator = DefaultItemAnimator()
             repo_list_rv.isNestedScrollingEnabled
-            repo_list_rv.addItemDecoration(
-                DividerItemDecoration(
-                    activity,
-                    layoutManager.orientation
-                )
-            )
-            viewDataBinding.viewmodel?.postsLiveData?.observe(viewLifecycleOwner, {
+            viewDataBinding.viewmodel?.postsLiveData?.observe(viewLifecycleOwner, Observer{
                 adapter.submitList(it)
             })
             repo_list_rv.adapter = adapter

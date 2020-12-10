@@ -1,7 +1,7 @@
 package com.example.newsapp.data.api
 
+
 import android.content.SharedPreferences
-import com.example.newsapp.utils.Constants.Companion.BASE_URL
 import com.example.newsapp.utils.Constants.Companion.BASE_URL_CORONA
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
@@ -11,19 +11,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object ApiClient {
+object ApiClientCorona {
 
-    fun create(okHttpClient: OkHttpClient): ApiService {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(okHttpClient)
-            .build()
-            .create(ApiService::class.java)
-    }
-
-    fun createCorona(okHttpClient: OkHttpClient): ApiServiceCorona {
+    fun create(okHttpClient: OkHttpClient): ApiServiceCorona {
         return Retrofit.Builder()
             .baseUrl(BASE_URL_CORONA)
             .addConverterFactory(GsonConverterFactory.create())

@@ -13,6 +13,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 
 
 val viewModelModule = module {
+    viewModel { CoronaViewModel(get()) }
     viewModel { SourcesListViewModel(get(), get()) }
     viewModel { LikesViewModel(get()) }
     viewModel { DetailViewModel(get()) }
@@ -31,6 +32,7 @@ val repositoryModule = module {
 
 val networkModule = module {
     single { ApiClient.create(okHttpClient = get()) }
+    single { ApiClient.createCorona(okHttpClient = get()) }
     single { ApiClient.getOkHttpClient(authInterceptor = get()) }
     single { ApiClient.getAuthInterceptor(sharedPreferences = get()) }
 }

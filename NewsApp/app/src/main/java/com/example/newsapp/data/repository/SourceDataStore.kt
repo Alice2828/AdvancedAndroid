@@ -95,7 +95,7 @@ class SourceDataStore(@PublishedApi internal val service: ApiService, var contex
     }
 
     companion object {
-        const val PAGE_SIZE = 15
+        const val PAGE_SIZE = 10
         const val FIRST_PAGE = 1
     }
 }

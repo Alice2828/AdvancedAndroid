@@ -1,11 +1,9 @@
 package com.example.newsapp.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.adapter.viewholder.SourceListViewHolder
 import com.example.newsapp.data.model.Articles
 import com.example.newsapp.databinding.ViewSourceItemBinding
@@ -28,9 +26,8 @@ class SourceListAdapter(val activity: SourcesActivity) :
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<Articles>() {
             override fun areItemsTheSame(oldItem: Articles, newItem: Articles): Boolean =
-                oldItem.id == newItem.id
+                oldItem.title == newItem.title
 
-            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(oldItem: Articles, newItem: Articles): Boolean =
                 oldItem == newItem
         }

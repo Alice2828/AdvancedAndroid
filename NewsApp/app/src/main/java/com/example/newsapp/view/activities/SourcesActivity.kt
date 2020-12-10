@@ -1,12 +1,10 @@
 package com.example.newsapp.view.activities
 
-import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity

@@ -62,3 +62,19 @@ data class Likes(
     var emailName: String?
 ) : Serializable
 
+
+data class General(
+    @SerializedName("Global")
+    var Global: Total
+) : Serializable
+
+data class Total(
+    @SerializedName("TotalConfirmed")
+    var TotalConfirmed: Long? = 0,
+    @SerializedName("NewConfirmed")
+    var NewConfirmed: Long? = 0,
+    @SerializedName("TotalDeaths")
+    var TotalDeaths: Long? = 0,
+    @SerializedName("TotalRecovered")
+    var TotalRecovered: Long? = 0
+) : Serializable

@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
