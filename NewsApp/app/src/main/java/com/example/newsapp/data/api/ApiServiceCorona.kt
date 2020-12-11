@@ -8,6 +8,6 @@ import retrofit2.http.GET
 
 interface ApiServiceCorona {
     @GET("summary")
-    fun getTotal(
-    ): Deferred<Response<General>>
+   suspend fun getTotal(
+    ): Response<General>
 }

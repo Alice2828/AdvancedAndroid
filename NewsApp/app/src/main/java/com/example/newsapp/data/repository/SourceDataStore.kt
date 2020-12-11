@@ -11,7 +11,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 class SourceDataStore(@PublishedApi internal val service: ApiService, var context: Context) :
     PageKeyedDataSource<Int, Articles>() {
@@ -37,7 +36,6 @@ class SourceDataStore(@PublishedApi internal val service: ApiService, var contex
                 }
 
             } catch (exception: Exception) {
-                Timber.e("Failed to fetch data!")
             }
         }
 
@@ -61,7 +59,6 @@ class SourceDataStore(@PublishedApi internal val service: ApiService, var contex
                     }
                 }
             } catch (exception: Exception) {
-                Timber.e("Failed to fetch data!")
             }
 
         }
@@ -87,7 +84,6 @@ class SourceDataStore(@PublishedApi internal val service: ApiService, var contex
                 }
 
             } catch (exception: Exception) {
-                Timber.e("Failed to fetch data!")
             }
 
 

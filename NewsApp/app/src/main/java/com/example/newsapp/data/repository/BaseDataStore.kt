@@ -11,7 +11,6 @@ import com.example.newsapp.database.ArticleDatabase
 import retrofit2.HttpException
 import retrofit2.Response
 import kotlinx.coroutines.*
-import timber.log.Timber
 
 abstract class BaseDataStore(@PublishedApi internal val service: ApiService, var context: Context) {
     abstract fun loadData(): LiveData<List<Articles>>
@@ -34,7 +33,6 @@ abstract class BaseDataStore(@PublishedApi internal val service: ApiService, var
                         }
                         if (data.isNotEmpty()) {
                             result.value = dao.getAll()
-                            Timber.d("Error occurred with code ${response.code()}")
                         }
                     }
                 } catch (e: HttpException) {
@@ -44,7 +42,6 @@ abstract class BaseDataStore(@PublishedApi internal val service: ApiService, var
                     if (data.isNotEmpty()) {
                         result.value = dao.getAll()
                     }
-                    Timber.d("Error: ${e.message()}")
                 } catch (e: Throwable) {
                     val data = withContext(Dispatchers.IO) {
                         dao.getAll()
@@ -52,7 +49,6 @@ abstract class BaseDataStore(@PublishedApi internal val service: ApiService, var
                     if (data.isNotEmpty()) {
                         result.value = dao.getAll()
                     }
-                    Timber.d("Error: ${e.message}")
                 }
             }
         }

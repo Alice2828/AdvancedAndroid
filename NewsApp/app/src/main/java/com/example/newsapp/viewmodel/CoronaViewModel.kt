@@ -1,30 +1,47 @@
 package com.example.newsapp.viewmodel
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.newsapp.data.api.ApiServiceCorona
 import com.example.newsapp.data.model.Total
 import kotlinx.coroutines.*
+import java.io.Serializable
+import kotlin.coroutines.CoroutineContext
 
-class CoronaViewModel(var service: ApiServiceCorona) : BaseViewModel() {
+class CoronaViewModel(var service: ApiServiceCorona) : BaseViewModel(), CoroutineScope {
+    val liveData = MutableLiveData<State>()
+    private val job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
-    fun getTotal(): Total {
 
-        var result = Total()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val request = service.getTotal()
-            try {
-                withContext(Dispatchers.Main) {
-                    val response = request.await()
-                    when {
-                        response.isSuccessful -> {
-                            result = response.body()?.Global as Total
-                        }
+    fun getTotal() {
+        launch {
+            liveData.value = State.ShowLoading
+            val result = withContext(Dispatchers.Main) {
+                try {
+                    val response = service.getTotal()
+                    if (response.isSuccessful) {
+                        val resulting = response.body()?.Global
+                        resulting
+                    } else {
+                        Log.e("TAG", "error")
                     }
-                }
-            } catch (exception: Exception) {
 
+                } catch (exception: Exception) {
+                    Log.e("TAG", "error2")
+                }
             }
+            liveData.value = State.HideLoading
+            liveData.value = State.Result(result)
+
         }
-        return result
+    }
+
+    sealed class State {
+        object ShowLoading : State()
+        object HideLoading : State()
+        data class Result(val result: Serializable?) : State()
     }
 }
