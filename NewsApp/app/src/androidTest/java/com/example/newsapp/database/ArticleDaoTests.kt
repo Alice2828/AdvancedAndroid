@@ -26,6 +26,7 @@ class ArticleDaoTests {
     private lateinit var database: ArticleDatabase
     private lateinit var dao: ArticleDao
 
+
     @Before
     fun setup() {
         database = Room.inMemoryDatabaseBuilder(

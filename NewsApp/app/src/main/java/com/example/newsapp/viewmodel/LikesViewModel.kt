@@ -27,7 +27,7 @@ class LikesViewModel(val context: Context) : BaseViewModel(), CoroutineScope {
             val articles = withContext(Dispatchers.IO) {
                 dao?.getAll(currentUser)
             }
-            liveData.value = articles
+            liveData.value = articles!!
         }
     }
 }
