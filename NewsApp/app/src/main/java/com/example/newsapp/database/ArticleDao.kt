@@ -11,7 +11,7 @@ interface LikesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(post: Likes?)
 
-    @Query("SELECT COALESCE(MAX(likesId),0) from " + Constants.LIKES_TABLE)
+    @Query("SELECT COALESCE(MAX(likesId),0) FROM " + Constants.LIKES_TABLE)
     fun queryLastInsert(): Long
 
     @Query("DELETE FROM " + Constants.LIKES_TABLE + " where articleTitle=:title AND emailName=:emailName")
@@ -19,6 +19,16 @@ interface LikesDao {
 
     @Query("SELECT id,author,title,description,url,urlToImage,publishedAt,content FROM " + Constants.ARTICLE_TABLE + " INNER JOIN " + Constants.LIKES_TABLE + " ON title=articleTitle WHERE emailName=:emailName")
     fun getAll(emailName: String?): List<Articles>
+
+    @Query("SELECT id,author,title,description,url,urlToImage,publishedAt,content FROM " + Constants.ARTICLE_TABLE + " INNER JOIN " + Constants.LIKES_TABLE + " ON title=articleTitle WHERE emailName=:emailName and title=:title")
+    fun getByTitle(title: String?, emailName: String?): Articles
+
+    @Query("SELECT * FROM " + Constants.LIKES_TABLE + " WHERE emailName=:emailName")
+    fun getAllLikes(emailName: String?): List<Likes>
+
+    @Query("SELECT * FROM " + Constants.LIKES_TABLE + " WHERE emailName=:emailName and articleTitle=:title")
+    fun getByTitleLike(title: String?, emailName: String?): Likes
+
 
 }
 
