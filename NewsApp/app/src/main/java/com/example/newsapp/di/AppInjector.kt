@@ -17,7 +17,7 @@ val viewModelModule = module {
     viewModel { SourcesListViewModel(get(), get()) }
     viewModel { LikesViewModel(get()) }
     viewModel { DetailViewModel(get()) }
-    viewModel { RepoListViewModel(get()) }
+    viewModel { RepoListViewModel(get<GetRepoListUseCase>()) }
     viewModel { GeneralListViewModel(get()) }
 }
 

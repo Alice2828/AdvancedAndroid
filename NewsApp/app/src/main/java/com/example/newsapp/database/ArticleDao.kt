@@ -28,8 +28,6 @@ interface LikesDao {
 
     @Query("SELECT * FROM " + Constants.LIKES_TABLE + " WHERE emailName=:emailName and articleTitle=:title")
     fun getByTitleLike(title: String?, emailName: String?): Likes
-
-
 }
 
 @Dao
