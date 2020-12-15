@@ -3,6 +3,7 @@ package com.example.newsapp.data.model
 import androidx.room.*
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+import java.util.*
 
 data class ApiPost(
     @SerializedName("status")
@@ -77,4 +78,11 @@ data class Total(
     var TotalDeaths: Long? = 0,
     @SerializedName("TotalRecovered")
     var TotalRecovered: Long? = 0
+) : Serializable
+
+data class DataCorona(
+    @SerializedName("Cases")
+    var Cases: Int,
+    @SerializedName("Date")
+    var Date: Date
 ) : Serializable
