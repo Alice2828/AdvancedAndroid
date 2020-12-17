@@ -13,4 +13,8 @@ interface ApiServiceCorona {
     @GET("dayone/country/kazakhstan/status/confirmed")
     suspend fun getConfirmedKz(
     ): Response<List<DataCorona>>
+
+    @GET("dayone/country/kazakhstan")
+    suspend fun getKz(
+    ): Response<List<DataCorona>>
 }

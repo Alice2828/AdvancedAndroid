@@ -25,7 +25,7 @@ class ThirdViewModel(var service: ApiServiceCorona) : BaseViewModel(), Coroutine
             liveData.value = CoronaState.ShowLoading
             val list = withContext(Dispatchers.Main) {
                 try {
-                    val response = service.getConfirmedKz()
+                    val response = service.getKz()
                     if (response.isSuccessful) {
                         Log.d("TAG", "")
                         val result = response.body() as Serializable

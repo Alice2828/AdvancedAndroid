@@ -81,8 +81,14 @@ data class Total(
 ) : Serializable
 
 data class DataCorona(
-    @SerializedName("Cases")
-    var Cases: Int,
+    @SerializedName("Confirmed")
+    var Confirmed: Int,
+    @SerializedName("Active")
+    var Active: Int,
+    @SerializedName("Deaths")
+    var Deaths: Int,
+    @SerializedName("Recovered")
+    var Recovered: Int,
     @SerializedName("Date")
-    var Date: Date
+    var Date: String
 ) : Serializable
