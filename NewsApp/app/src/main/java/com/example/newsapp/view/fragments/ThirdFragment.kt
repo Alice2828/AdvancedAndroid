@@ -39,7 +39,7 @@ class ThirdFragment : Fragment() {
         swipe_refresh_view.setOnRefreshListener {
             thirdViewModel.getDataCorona()
         }
-        thirdViewModel.liveData.observe(viewLifecycleOwner, Observer { result ->
+        thirdViewModel.liveData.observe(viewLifecycleOwner, { result ->
             when (result) {
                 is ThirdViewModel.CoronaState.ShowLoading -> {
                     swipe_refresh_view.isRefreshing = true
@@ -52,19 +52,19 @@ class ThirdFragment : Fragment() {
                     val coronaInfoForBar = ArrayList<BarEntry>()
                     val coronaInfoForBarDeath = ArrayList<BarEntry>()
                     val coronaInfoForBarActive = ArrayList<BarEntry>()
-
                     val coronaInfoForBarRecovered = ArrayList<BarEntry>()
 
-                    val coronaInfo = (result.list as List<DataCorona>).subList(
-                        (result.list as List<DataCorona>).size - 10,
-                        (result.list as List<DataCorona>).size
+                    val list = result.list as List<DataCorona>
+
+                    val coronaInfo = list.subList(
+                        list.size - 4,
+                        list.size
                     )
                     val labels = ArrayList<String>()
 
                     for ((index, info) in coronaInfo.withIndex()) {
                         coronaInfoForBar.add(BarEntry(index.toFloat(), info.Confirmed.toFloat()))
                         coronaInfoForBarActive.add(BarEntry(index.toFloat(), info.Active.toFloat()))
-
                         coronaInfoForBarDeath.add(BarEntry(index.toFloat(), info.Deaths.toFloat()))
                         coronaInfoForBarRecovered.add(
                             BarEntry(
@@ -73,42 +73,43 @@ class ThirdFragment : Fragment() {
                             )
                         )
 
-                        labels.add(info.Date)
+                        labels.add((info.Date).substring(0, 10))
                     }
 
                     val barDataSet = BarDataSet(coronaInfoForBar, "Confirmed")
                     barDataSet.color = Color.BLUE
-                    barDataSet.valueTextColor = Color.rgb(61, 165, 255)
-                    barDataSet.valueTextSize = 16f
+                    barDataSet.valueTextColor = Color.BLUE
+                    barDataSet.valueTextSize = 10f
 
                     val barDataSetActive = BarDataSet(coronaInfoForBarActive, "Active")
                     barDataSetActive.color = Color.MAGENTA
-                    barDataSetActive.valueTextColor = Color.rgb(61, 165, 255)
-                    barDataSetActive.valueTextSize = 16f
+                    barDataSetActive.valueTextColor = Color.MAGENTA
+                    barDataSetActive.valueTextSize = 10f
 
                     val barDataSetDeath = BarDataSet(coronaInfoForBarDeath, "Deaths")
                     barDataSetDeath.color = Color.RED
-                    barDataSetDeath.valueTextColor = Color.rgb(61, 165, 255)
-                    barDataSetDeath.valueTextSize = 16f
+                    barDataSetDeath.valueTextColor = Color.RED
+                    barDataSetDeath.valueTextSize = 10f
 
                     val barDataSetRecovered = BarDataSet(coronaInfoForBarRecovered, "Recovered")
                     barDataSetRecovered.color = Color.GREEN
-                    barDataSetRecovered.valueTextColor = Color.rgb(61, 165, 255)
-                    barDataSetRecovered.valueTextSize = 16f
+                    barDataSetRecovered.valueTextColor = Color.GREEN
+                    barDataSetRecovered.valueTextSize = 10f
 
-                    val groupSpace = 0.7f
+                    val groupSpace = 0.4f
                     val barSpace = 0f // x2 dataset
-                    val barWidth = 0.25f // x2 dataset
+                    val barWidth = 0.15f // x2 dataset
+
                     val dataSets = ArrayList<IBarDataSet>()
                     dataSets.add(barDataSetActive)
                     dataSets.add(barDataSetRecovered)
                     dataSets.add(barDataSet)
                     dataSets.add(barDataSetDeath)
-                    val barData = BarData(dataSets)
 
+                    val barData = BarData(dataSets)
+                    barChart.description.isEnabled = false
                     barData.barWidth = barWidth
                     barChart.data = barData
-                    barChart.description.text = "Coronavirus in Kazakhstan"
                     barChart.animateY(2000)
                     val xAxisFormatter = IndexAxisValueFormatter(labels)
                     val xAxis: XAxis = barChart.xAxis
@@ -119,21 +120,24 @@ class ThirdFragment : Fragment() {
                     xAxis.textColor = Color.BLACK
                     xAxis.textSize = 8f
                     xAxis.axisLineColor = Color.BLACK
-                    xAxis.axisMinimum = 1f
+                    xAxis.axisMinimum = 0f
+                    xAxis.axisMaximum = labels.size - 1f
                     xAxis.valueFormatter = xAxisFormatter
 
                     val leftAxis: YAxis = barChart.axisLeft
                     leftAxis.textColor = Color.BLACK
-                    leftAxis.textSize = 12f
+                    leftAxis.textSize = 8f
                     leftAxis.axisLineColor = Color.BLACK
                     leftAxis.granularity = 2f
                     leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
-                    xAxis.axisMaximum = labels.size - 1.1f
+                    leftAxis.axisMinimum = 0f
                     barChart.setScaleEnabled(false)
-                    barChart.setVisibleXRangeMaximum(5f)
+                    barChart.setVisibleXRangeMaximum(30F)
+                    barChart.moveViewToX(20F)
                     barChart.axisRight.isEnabled = false
+                    barChart.setTouchEnabled(false)
                     barChart.groupBars(
-                        1f,
+                        0.1f,
                         groupSpace,
                         barSpace
                     )
