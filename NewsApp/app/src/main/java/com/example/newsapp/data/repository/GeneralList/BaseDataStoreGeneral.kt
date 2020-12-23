@@ -1,4 +1,4 @@
-package com.example.newsapp.data.repository
+package com.example.newsapp.data.repository.GeneralList
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -12,8 +12,12 @@ import retrofit2.HttpException
 import retrofit2.Response
 import kotlinx.coroutines.*
 
-abstract class BaseDataStore(@PublishedApi internal val service: ApiService, var context: Context) {
+abstract class BaseDataStoreGeneral(
+    @PublishedApi internal val service: ApiService,
+    var context: Context
+) {
     abstract fun loadData(): LiveData<List<Articles>>
+    abstract fun loadDataSearchable(keyword: String): LiveData<List<Articles>>
 
     var dao: ArticleDao = ArticleDatabase.getDatabase(context).articleDao()
 
@@ -27,6 +31,7 @@ abstract class BaseDataStore(@PublishedApi internal val service: ApiService, var
                     if (response.isSuccessful) {
                         result.value = response.body()?.articles
                         result.value?.let { dao.insertAll(it) }
+
                     } else {
                         val data = withContext(Dispatchers.IO) {
                             dao.getAll()

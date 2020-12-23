@@ -1,4 +1,4 @@
-package com.example.newsapp.data.repository
+package com.example.newsapp.data.repository.RepoList
 
 import android.content.Context
 import androidx.lifecycle.LiveData

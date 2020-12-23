@@ -6,8 +6,8 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.example.newsapp.data.api.ApiService
 import com.example.newsapp.data.model.Articles
-import com.example.newsapp.data.repository.SourceDataStore
-import com.example.newsapp.data.repository.SourceDataSourceFactory
+import com.example.newsapp.data.repository.SourceData.SourceDataStore
+import com.example.newsapp.data.repository.SourceData.SourceDataSourceFactory
 
 
 class SourcesListViewModel(service: ApiService, context: Context) : BaseViewModel() {
