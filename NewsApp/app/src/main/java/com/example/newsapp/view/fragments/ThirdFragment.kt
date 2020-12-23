@@ -97,8 +97,8 @@ class ThirdFragment : Fragment() {
                     barDataSetRecovered.valueTextSize = 10f
 
                     val groupSpace = 0.4f
-                    val barSpace = 0f // x2 dataset
-                    val barWidth = 0.15f // x2 dataset
+                    val barSpace = 0f // x4 dataset
+                    val barWidth = 0.15f // x4 dataset
 
                     val dataSets = ArrayList<IBarDataSet>()
                     dataSets.add(barDataSetActive)

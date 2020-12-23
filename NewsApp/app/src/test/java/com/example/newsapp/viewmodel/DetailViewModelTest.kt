@@ -55,8 +55,6 @@ class DetailViewModelTest {
         daoArt.insert(likedArticle)
         daoArt.insert(newLikedArticle)
         dao.insert(Likes(1, "hello", emailName))
-
-
     }
 
     @After

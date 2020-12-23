@@ -49,4 +49,17 @@ class ArticleDaoTests {
         val allArticles = dao.getAll()
         MatcherAssert.assertThat(allArticles, CoreMatchers.hasItem(articleItem))
     }
+
+    @Test
+    fun insertAllArticle() = runBlockingTest {
+        val articleItem = Articles(1, "", "hi", "", "", "", "", "")
+        val articleItem2 = Articles(2, "", "hello", "", "", "", "", "")
+        val list = ArrayList<Articles>()
+        list.add(articleItem)
+        list.add(articleItem2)
+        dao.insertAll(list)
+
+        val allArticles = dao.getAll()
+        MatcherAssert.assertThat(allArticles, CoreMatchers.hasItems(articleItem, articleItem2))
+    }
 }
